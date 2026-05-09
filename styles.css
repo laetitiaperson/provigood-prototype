@@ -998,6 +998,15 @@ small,
   color: var(--color-primary);
 }
 
+.reason-stat {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
 .reason p {
   font-size: 15px;
   color: var(--color-text-soft);
