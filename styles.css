@@ -832,7 +832,8 @@ small,
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-3) var(--space-5);
+  row-gap: var(--space-3);
 }
 
 .trust-logo {
@@ -850,6 +851,36 @@ small,
 .trust-logo:hover {
   color: var(--color-primary);
   border-color: var(--color-primary-soft);
+}
+
+/* Image logos: consistent height, neutral by default, colour on hover */
+.trust-logo--img {
+  height: 56px;
+  width: auto;
+  min-width: 90px;
+  max-width: 180px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.78;
+  transition: filter var(--transition), opacity var(--transition), transform var(--transition);
+}
+
+.trust-logo--img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .trust-logo--img {
+    height: 64px;
+    min-width: 110px;
+    max-width: 200px;
+  }
 }
 
 /* Why Vietnam — long-form text
