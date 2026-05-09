@@ -1260,7 +1260,7 @@ small,
 
 @media (min-width: 1024px) {
   .cta-final-grid {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.6fr 1fr;
     gap: var(--space-6);
   }
 }
@@ -1281,18 +1281,23 @@ small,
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   order: -1;
+  max-width: 380px;
+  width: 100%;
+  justify-self: center;
 }
 
 @media (min-width: 1024px) {
   .cta-final-figure {
     order: 0;
+    max-width: 100%;
+    justify-self: end;
   }
 }
 
 .cta-final-figure img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
 }
