@@ -1371,6 +1371,10 @@ small,
   margin: 0;
 }
 
+.cta-final-text .reassurance {
+  text-align: center;
+}
+
 /* Footer
    ========================================================================== */
 .site-footer {
