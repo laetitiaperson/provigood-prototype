@@ -1364,11 +1364,6 @@ small,
   }
 }
 
-@media (min-width: 1024px) {
-  .cta-final-text .cta-buttons {
-    justify-content: flex-start;
-  }
-}
 
 .reassurance {
   font-size: 14px;
