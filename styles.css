@@ -1411,8 +1411,97 @@ small,
   }
 }
 
-/* Method grid — 4-step variant (forces 2x2 on desktop)
+/* Distribution page — Olivo three-format mini-grid
    ========================================================================== */
+.format-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+@media (min-width: 600px) {
+  .format-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.format-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.format-name {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-1);
+}
+
+.format-card p {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Distribution page — ESG / Sustainability grid
+   ========================================================================== */
+.esg-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 1024px) {
+  .esg-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+}
+
+.esg-block {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.esg-block--olivo {
+  border-top: 4px solid var(--color-primary);
+}
+
+.esg-block--coffee {
+  border-top: 4px solid var(--color-accent);
+}
+
+.esg-block h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .esg-block h3 {
+    font-size: 20px;
+  }
+}
+
+/* CTA buttons — triple layout (3 CTAs on final CTA)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .cta-buttons--triple {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+
 @media (min-width: 768px) {
   .method-grid.method-grid--4 {
     grid-template-columns: repeat(2, 1fr);
