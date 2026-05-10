@@ -321,6 +321,22 @@ small,
   box-shadow: var(--shadow-md);
 }
 
+/* Lime accent CTA — used in hero sections to break the pink monotony */
+.btn--accent {
+  background: var(--color-accent);
+  color: var(--color-text);
+  padding: 16px 32px;
+  border: 2px solid var(--color-accent);
+}
+
+.btn--accent:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: var(--color-text);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
 .btn--ghost {
   color: var(--color-text);
   padding: 12px 0;
