@@ -1274,6 +1274,12 @@ small,
   }
 }
 
+/* Lime icon variant for consulting Industries (avoid pink monotony) */
+.industries-grid--4 .industry-icon {
+  background: rgba(197, 218, 59, 0.25);
+  color: var(--color-accent-dark);
+}
+
 .adjacent-sectors {
   display: flex;
   flex-wrap: wrap;
