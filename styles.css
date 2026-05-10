@@ -1385,6 +1385,32 @@ small,
   margin: 0;
 }
 
+/* Logo images inside partner cards — keep readable, consistent height */
+.partner-logo {
+  display: block;
+  margin: 0 auto;
+  height: 70px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .partner-logo {
+    height: 80px;
+  }
+}
+
+.partner-logo--circle {
+  height: 90px;
+}
+
+@media (min-width: 768px) {
+  .partner-logo--circle {
+    height: 100px;
+  }
+}
+
 /* Method grid — 4-step variant (forces 2x2 on desktop)
    ========================================================================== */
 @media (min-width: 768px) {
