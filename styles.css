@@ -1015,6 +1015,85 @@ small,
   flex-grow: 1;
 }
 
+/* Industries We Serve — 6 sector chips grid
+   ========================================================================== */
+.industries-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .industries-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .industries-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.industry {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.industry:hover {
+  border-color: var(--color-primary-soft);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.industry-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
+}
+
+.industry-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.industry h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .industry h3 {
+    font-size: 20px;
+  }
+}
+
+.industry p {
+  font-size: 14px;
+  color: var(--color-text-soft);
+  margin: 0;
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  .industry p {
+    font-size: 15px;
+  }
+}
+
 /* Why choose us — 6 items grid
    ========================================================================== */
 .reasons-grid {
