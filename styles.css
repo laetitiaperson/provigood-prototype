@@ -1103,6 +1103,259 @@ small,
   }
 }
 
+/* Consulting page — 5 expanded service-area cards (vertical stack)
+   ========================================================================== */
+.areas-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .areas-list {
+    gap: var(--space-4);
+  }
+}
+
+.area-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+@media (min-width: 768px) {
+  .area-card {
+    padding: var(--space-4);
+  }
+}
+
+.area-card:hover {
+  border-color: var(--color-primary-soft);
+  box-shadow: var(--shadow-md);
+}
+
+.area-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.area-num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+
+.area-head h3 {
+  margin: 0 0 2px;
+  font-size: 22px;
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .area-head h3 {
+    font-size: 24px;
+  }
+}
+
+.area-subtitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.area-body {
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0 0 var(--space-3);
+}
+
+.area-domains {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .area-domains {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.area-domains li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 15px;
+  color: var(--color-text-soft);
+  line-height: 1.5;
+}
+
+.area-domains li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-primary-soft);
+  border-radius: 4px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E91E63' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 10px;
+}
+
+/* Method grid — 4-step variant (forces 2x2 on desktop)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .method-grid.method-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .method-grid.method-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Consulting industries — sub-heads + 4-col grid + adjacent list
+   ========================================================================== */
+.industries-subhead {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-2);
+  text-align: center;
+}
+
+.industries-subhead--secondary {
+  color: var(--color-text-soft);
+  margin-top: var(--space-5);
+}
+
+.industries-subhead small {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-text-soft);
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .industries-grid.industries-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .industries-grid.industries-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.adjacent-sectors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.adjacent-sectors li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.adjacent-sectors li small {
+  color: var(--color-text-soft);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.adjacent-icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.adjacent-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Featured testimonial (single, centered, larger)
+   ========================================================================== */
+.testimonial--featured {
+  max-width: 720px;
+  margin: var(--space-5) auto 0;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.testimonial--featured::before {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.testimonial--featured blockquote {
+  font-size: 22px;
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .testimonial--featured blockquote {
+    font-size: 26px;
+  }
+}
+
+.testimonial--featured cite {
+  font-style: normal;
+}
+
 /* Services page — reasons grid 2-col modifier (for 4-item layouts)
    ========================================================================== */
 @media (min-width: 1024px) {
