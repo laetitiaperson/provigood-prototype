@@ -193,6 +193,15 @@ small,
   background: var(--color-soft-white);
 }
 
+/* Halve top/bottom padding when two same-background sections are adjacent */
+.section--tight-bottom {
+  padding-bottom: calc(var(--section-pad) / 2);
+}
+
+.section--tight-top {
+  padding-top: calc(var(--section-pad) / 2);
+}
+
 .section--accent {
   background: linear-gradient(135deg, var(--color-primary-soft) 0%, #FFF9DB 100%);
 }
