@@ -1266,13 +1266,7 @@ small,
 }
 
 .cta-final-text {
-  text-align: left;
-}
-
-@media (max-width: 1023px) {
-  .cta-final-text {
-    text-align: center;
-  }
+  text-align: center;
 }
 
 .cta-final-figure {
@@ -1343,12 +1337,6 @@ small,
   color: var(--color-text);
 }
 
-@media (min-width: 1024px) {
-  .cta-final-text .lead {
-    margin-left: 0;
-  }
-}
-
 .cta-buttons {
   display: flex;
   flex-direction: column;
@@ -1369,10 +1357,6 @@ small,
   font-size: 14px;
   color: var(--color-text-soft);
   margin: 0;
-}
-
-.cta-final-text .reassurance {
-  text-align: center;
 }
 
 /* Footer
