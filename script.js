@@ -167,4 +167,40 @@
       }
     });
   }
+
+  // ---------- YouTube IFrame API: enforce custom end time ----------
+  // The native ?end= URL parameter is unreliable, so we poll currentTime
+  // and pause when the configured end time is reached.
+  const ytFrames = document.querySelectorAll('iframe[data-end-time]');
+  if (ytFrames.length > 0) {
+    // Load YouTube IFrame API once
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+
+    window.onYouTubeIframeAPIReady = function () {
+      ytFrames.forEach((frame) => {
+        const endTime = parseFloat(frame.dataset.endTime);
+        if (!Number.isFinite(endTime)) return;
+
+        new YT.Player(frame, {
+          events: {
+            onStateChange: (event) => {
+              if (event.data === YT.PlayerState.PLAYING) {
+                const player = event.target;
+                const intervalId = setInterval(() => {
+                  if (player.getCurrentTime() >= endTime) {
+                    player.pauseVideo();
+                    clearInterval(intervalId);
+                  }
+                }, 250);
+              }
+            },
+          },
+        });
+      });
+    };
+  }
 })();

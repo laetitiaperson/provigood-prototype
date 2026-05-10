@@ -1415,7 +1415,7 @@ small,
    ========================================================================== */
 .video-embed {
   margin: var(--space-3) auto 0;
-  max-width: 560px;
+  max-width: 480px;
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-dark);
