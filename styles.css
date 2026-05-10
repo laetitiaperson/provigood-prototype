@@ -1111,6 +1111,58 @@ small,
   }
 }
 
+/* Services page — Why 360° intro (text + side photo)
+   ========================================================================== */
+.why360-h2 {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.why360-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  .why360-intro {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.why360-intro-text .lead {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.why360-figure {
+  margin: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  max-width: 380px;
+  width: 100%;
+  justify-self: center;
+}
+
+@media (min-width: 1024px) {
+  .why360-figure {
+    max-width: 100%;
+    justify-self: end;
+  }
+}
+
+.why360-figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
 /* Services page — rich pillar cards (with domain pills, no image banner)
    ========================================================================== */
 .pillar--rich {
