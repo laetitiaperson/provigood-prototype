@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Pink rounded background — Provigood primary -->
+  <rect width="32" height="32" rx="7" fill="#E91E63"/>
+  <!-- Lime triangle — the signature accent that sits above the "i" -->
+  <polygon points="16,5 23,14 9,14" fill="#C5DA3B"/>
+  <!-- White "i" body, completing the iconic glyph -->
+  <rect x="13.5" y="16" width="5" height="12" rx="1.5" fill="#FFFFFF"/>
+</svg>
