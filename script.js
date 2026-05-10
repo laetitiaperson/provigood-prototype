@@ -168,39 +168,71 @@
     });
   }
 
-  // ---------- YouTube IFrame API: enforce custom end time ----------
-  // The native ?end= URL parameter is unreliable, so we poll currentTime
-  // and pause when the configured end time is reached.
+  // ---------- YouTube IFrame API: enforce custom start/end times ----------
+  // The native ?start= and ?end= URL parameters are unreliable; we use the
+  // IFrame API to seek on ready and pause when the end time is reached.
   const ytFrames = document.querySelectorAll('iframe[data-end-time]');
   if (ytFrames.length > 0) {
-    // Load YouTube IFrame API once
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(tag);
-    }
+    // Make sure each iframe has an id (the API attaches by id)
+    ytFrames.forEach((frame, i) => {
+      if (!frame.id) frame.id = 'yt-frame-' + i;
+    });
 
-    window.onYouTubeIframeAPIReady = function () {
+    const initPlayers = () => {
       ytFrames.forEach((frame) => {
+        const startTime = parseFloat(frame.dataset.startTime);
         const endTime = parseFloat(frame.dataset.endTime);
         if (!Number.isFinite(endTime)) return;
 
-        new YT.Player(frame, {
+        let watchInterval = null;
+
+        const watchEnd = (player) => {
+          if (watchInterval) clearInterval(watchInterval);
+          watchInterval = setInterval(() => {
+            try {
+              if (player.getCurrentTime() >= endTime) {
+                player.pauseVideo();
+                clearInterval(watchInterval);
+                watchInterval = null;
+              }
+            } catch (err) {
+              clearInterval(watchInterval);
+              watchInterval = null;
+            }
+          }, 200);
+        };
+
+        new YT.Player(frame.id, {
           events: {
+            onReady: (event) => {
+              if (Number.isFinite(startTime)) {
+                event.target.seekTo(startTime, true);
+              }
+            },
             onStateChange: (event) => {
               if (event.data === YT.PlayerState.PLAYING) {
-                const player = event.target;
-                const intervalId = setInterval(() => {
-                  if (player.getCurrentTime() >= endTime) {
-                    player.pauseVideo();
-                    clearInterval(intervalId);
-                  }
-                }, 250);
+                watchEnd(event.target);
+              } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                if (watchInterval) {
+                  clearInterval(watchInterval);
+                  watchInterval = null;
+                }
               }
             },
           },
         });
       });
     };
+
+    if (window.YT && window.YT.Player) {
+      initPlayers();
+    } else {
+      window.onYouTubeIframeAPIReady = initPlayers;
+      if (!document.querySelector('script[src*="iframe_api"]')) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+      }
+    }
   }
 })();
