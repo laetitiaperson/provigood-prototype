@@ -963,6 +963,22 @@ small,
 .pillar {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+/* Banner image at top of pillar card — bleeds to card edges */
+.pillar-figure {
+  margin: -32px -32px var(--space-3);
+  padding: 0;
+  background: var(--color-soft-white);
+}
+
+.pillar-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .pillar-num {
