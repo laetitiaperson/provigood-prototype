@@ -180,7 +180,6 @@
 
     const initPlayers = () => {
       ytFrames.forEach((frame) => {
-        const startTime = parseFloat(frame.dataset.startTime);
         const endTime = parseFloat(frame.dataset.endTime);
         if (!Number.isFinite(endTime)) return;
 
@@ -202,13 +201,10 @@
           }, 200);
         };
 
+        // Note: start time is handled by the ?start= URL parameter alone.
+        // Calling seekTo() on onReady was causing autoplay on some browsers.
         new YT.Player(frame.id, {
           events: {
-            onReady: (event) => {
-              if (Number.isFinite(startTime)) {
-                event.target.seekTo(startTime, true);
-              }
-            },
             onStateChange: (event) => {
               if (event.data === YT.PlayerState.PLAYING) {
                 watchEnd(event.target);
