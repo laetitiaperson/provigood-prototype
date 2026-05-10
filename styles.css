@@ -813,6 +813,13 @@ small,
   flex-grow: 1;
 }
 
+/* Center CTA button on mobile (left-aligned on tablet/desktop) */
+@media (max-width: 767px) {
+  .parcours > div {
+    text-align: center;
+  }
+}
+
 /* Trust bar
    ========================================================================== */
 .trust-bar {
