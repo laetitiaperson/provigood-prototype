@@ -105,4 +105,66 @@
       });
     });
   });
+
+  // ---------- Contact form: type variants + URL param + submission ----------
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    const variants = document.querySelectorAll('.form-variant');
+    const radios = document.querySelectorAll('input[name="contact-type"]');
+
+    function showVariant(type) {
+      variants.forEach((v) => {
+        const match = v.dataset.variant === type;
+        v.hidden = !match;
+        // Disable hidden fields so they don't validate / submit
+        v.querySelectorAll('input, select, textarea').forEach((el) => {
+          el.disabled = !match;
+        });
+      });
+    }
+
+    // Initial: pick variant from ?type=... URL param
+    const params = new URLSearchParams(window.location.search);
+    const initialType = params.get('type');
+    const validTypes = ['consulting', 'recruitment', 'training', 'olivo', 'coffee'];
+
+    if (initialType && validTypes.includes(initialType)) {
+      const matchedRadio = document.querySelector(`input[name="contact-type"][value="${initialType}"]`);
+      if (matchedRadio) matchedRadio.checked = true;
+      showVariant(initialType);
+    } else {
+      showVariant('consulting');
+    }
+
+    // Switch on radio change
+    radios.forEach((r) => {
+      r.addEventListener('change', (e) => {
+        if (e.target.checked) showVariant(e.target.value);
+      });
+    });
+
+    // Submit handler — fake submission, show success state
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Basic native validation already handled via `required` attrs
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      // Hide everything except the success block
+      contactForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
+        el.hidden = true;
+      });
+      // Also hide the type selector
+      const selector = document.querySelector('.type-selector');
+      if (selector) selector.hidden = true;
+
+      const success = contactForm.querySelector('.form-success');
+      if (success) {
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
 })();
