@@ -1411,11 +1411,12 @@ small,
   }
 }
 
-/* Distribution page — embedded video (responsive 16:9)
+/* Distribution page — embedded video (responsive 16:9, compact)
    ========================================================================== */
 .video-embed {
-  margin: var(--space-3) 0 0;
-  border-radius: var(--radius-lg);
+  margin: var(--space-3) auto 0;
+  max-width: 560px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-dark);
   box-shadow: var(--shadow-md);
@@ -1426,16 +1427,6 @@ small,
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
-}
-
-.video-caption {
-  font-size: 13px;
-  color: var(--color-text-soft);
-  text-align: center;
-  margin: var(--space-1) 0 0;
-  padding: 8px var(--space-2);
-  background: var(--color-soft-white);
-  font-style: italic;
 }
 
 /* Distribution page — Olivo three-format mini-grid
