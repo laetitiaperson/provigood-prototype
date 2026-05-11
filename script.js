@@ -252,4 +252,202 @@
       }
     }
   }
+
+  // ---------- Cookie consent banner + preferences modal ----------
+  // Lightweight prototype implementation. On WordPress we'll swap this for a
+  // proper plugin (e.g. CookieYes / Complianz). Preferences are stored in
+  // localStorage under "provigood-cookie-consent".
+  const CONSENT_KEY = 'provigood-cookie-consent';
+
+  function readConsent() {
+    try {
+      const raw = localStorage.getItem(CONSENT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function writeConsent(prefs) {
+    const payload = {
+      necessary: true,
+      analytics: !!prefs.analytics,
+      marketing: !!prefs.marketing,
+      thirdparty: !!prefs.thirdparty,
+      timestamp: new Date().toISOString(),
+    };
+    try {
+      localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+    } catch (err) {
+      /* ignore */
+    }
+    // Dispatch a custom event so other scripts could react if needed
+    document.dispatchEvent(new CustomEvent('provigood:cookie-consent', { detail: payload }));
+    return payload;
+  }
+
+  function buildBannerHTML() {
+    return (
+      '<aside class="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-desc">' +
+      '  <h2 id="cookie-banner-title">We value your privacy</h2>' +
+      '  <p id="cookie-banner-desc">We use cookies to make our site work, analyse traffic, and improve your experience. You can accept all, reject non-essential, or customize your choices. See our <a href="cookie-policy.html">Cookie Policy</a>.</p>' +
+      '  <div class="cookie-banner-actions">' +
+      '    <button type="button" class="btn btn--primary btn--small js-cookie-accept">Accept all</button>' +
+      '    <button type="button" class="btn btn--ghost btn--small js-cookie-reject">Reject all</button>' +
+      '    <button type="button" class="btn btn--ghost btn--small js-cookie-customize">Customize</button>' +
+      '  </div>' +
+      '</aside>'
+    );
+  }
+
+  function buildModalHTML(current) {
+    const c = current || { analytics: true, marketing: true, thirdparty: true };
+    const chk = (v) => (v ? 'checked' : '');
+    return (
+      '<div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">' +
+      '  <div class="cookie-modal-dialog">' +
+      '    <div class="cookie-modal-head">' +
+      '      <h2 id="cookie-modal-title">Cookie preferences</h2>' +
+      '      <button type="button" class="cookie-modal-close js-cookie-modal-close" aria-label="Close">' +
+      '        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '      </button>' +
+      '    </div>' +
+      '    <p>Choose which categories of cookies we can use. Strictly necessary cookies are always on because the site cannot work without them. See our <a href="cookie-policy.html">Cookie Policy</a> for full details.</p>' +
+      '    <div class="cookie-categories">' +
+      '      <div class="cookie-category">' +
+      '        <div class="cookie-category-head">' +
+      '          <h3>Strictly necessary</h3>' +
+      '          <label class="cookie-toggle"><input type="checkbox" checked disabled data-category="necessary"><span class="cookie-toggle-slider"></span></label>' +
+      '        </div>' +
+      '        <p>Required for core site functionality such as navigation, language preference, and security. Cannot be disabled.</p>' +
+      '      </div>' +
+      '      <div class="cookie-category">' +
+      '        <div class="cookie-category-head">' +
+      '          <h3>Analytics</h3>' +
+      '          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.analytics) + ' data-category="analytics"><span class="cookie-toggle-slider"></span></label>' +
+      '        </div>' +
+      '        <p>Help us understand how visitors use the site so we can improve it (e.g. Google Analytics). Aggregated and anonymised.</p>' +
+      '      </div>' +
+      '      <div class="cookie-category">' +
+      '        <div class="cookie-category-head">' +
+      '          <h3>Marketing</h3>' +
+      '          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.marketing) + ' data-category="marketing"><span class="cookie-toggle-slider"></span></label>' +
+      '        </div>' +
+      '        <p>Used to measure the performance of our campaigns and to show you relevant content.</p>' +
+      '      </div>' +
+      '      <div class="cookie-category">' +
+      '        <div class="cookie-category-head">' +
+      '          <h3>Third-party content</h3>' +
+      '          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.thirdparty) + ' data-category="thirdparty"><span class="cookie-toggle-slider"></span></label>' +
+      '        </div>' +
+      '        <p>Enables embedded content from third parties (e.g. YouTube videos, maps). These providers may set their own cookies.</p>' +
+      '      </div>' +
+      '    </div>' +
+      '    <div class="cookie-modal-actions">' +
+      '      <button type="button" class="btn btn--ghost btn--small js-cookie-reject">Reject all</button>' +
+      '      <button type="button" class="btn btn--primary btn--small js-cookie-save">Save preferences</button>' +
+      '      <button type="button" class="btn btn--primary btn--small js-cookie-accept">Accept all</button>' +
+      '    </div>' +
+      '  </div>' +
+      '</div>'
+    );
+  }
+
+  function removeBanner() {
+    const existing = document.querySelector('.cookie-banner');
+    if (existing) existing.remove();
+  }
+
+  function removeModal() {
+    const existing = document.querySelector('.cookie-modal');
+    if (existing) existing.remove();
+    document.body.classList.remove('no-scroll');
+  }
+
+  function showBanner() {
+    if (document.querySelector('.cookie-banner')) return;
+    const wrap = document.createElement('div');
+    wrap.innerHTML = buildBannerHTML();
+    document.body.appendChild(wrap.firstElementChild);
+  }
+
+  function showModal(prefill) {
+    removeModal();
+    const wrap = document.createElement('div');
+    wrap.innerHTML = buildModalHTML(prefill);
+    const modal = wrap.firstElementChild;
+    document.body.appendChild(modal);
+    document.body.classList.add('no-scroll');
+
+    // Close on overlay click (only when clicking the backdrop, not the dialog)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) removeModal();
+    });
+  }
+
+  function acceptAll() {
+    writeConsent({ analytics: true, marketing: true, thirdparty: true });
+    removeBanner();
+    removeModal();
+  }
+
+  function rejectAll() {
+    writeConsent({ analytics: false, marketing: false, thirdparty: false });
+    removeBanner();
+    removeModal();
+  }
+
+  function savePreferences() {
+    const modal = document.querySelector('.cookie-modal');
+    if (!modal) return;
+    const prefs = {
+      analytics: !!modal.querySelector('input[data-category="analytics"]')?.checked,
+      marketing: !!modal.querySelector('input[data-category="marketing"]')?.checked,
+      thirdparty: !!modal.querySelector('input[data-category="thirdparty"]')?.checked,
+    };
+    writeConsent(prefs);
+    removeBanner();
+    removeModal();
+  }
+
+  // Delegated click handler for all cookie-related actions
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest(
+      '.js-cookie-accept, .js-cookie-reject, .js-cookie-customize, .js-cookie-save, .js-cookie-modal-close, .js-cookie-settings'
+    );
+    if (!target) return;
+
+    if (target.classList.contains('js-cookie-accept')) {
+      e.preventDefault();
+      acceptAll();
+    } else if (target.classList.contains('js-cookie-reject')) {
+      e.preventDefault();
+      rejectAll();
+    } else if (target.classList.contains('js-cookie-customize')) {
+      e.preventDefault();
+      showModal(readConsent());
+    } else if (target.classList.contains('js-cookie-save')) {
+      e.preventDefault();
+      savePreferences();
+    } else if (target.classList.contains('js-cookie-modal-close')) {
+      e.preventDefault();
+      removeModal();
+    } else if (target.classList.contains('js-cookie-settings')) {
+      e.preventDefault();
+      showModal(readConsent());
+    }
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.querySelector('.cookie-modal')) {
+      removeModal();
+    }
+  });
+
+  // Show banner on first visit
+  if (!readConsent()) {
+    // Defer slightly so it doesn't compete with the page paint
+    setTimeout(showBanner, 300);
+  }
 })();
