@@ -3967,7 +3967,7 @@ small,
 
 .legal-content p {
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.65;
   color: var(--color-text);
   margin-bottom: var(--space-3);
 }
@@ -3986,9 +3986,9 @@ small,
 
 .legal-content li {
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.65;
   color: var(--color-text);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 @media (min-width: 768px) {
@@ -4019,7 +4019,7 @@ small,
   border-left: 4px solid var(--color-accent);
   border-radius: var(--radius-md);
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.65;
 }
 
 /* Cookie consent banner
