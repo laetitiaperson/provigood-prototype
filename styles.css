@@ -1791,8 +1791,8 @@ small,
   height: 40px;
   flex-shrink: 0;
   border-radius: var(--radius-sm);
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: rgba(197, 218, 59, 0.25);
+  color: var(--color-accent-dark);
 }
 
 .network-icon svg {
