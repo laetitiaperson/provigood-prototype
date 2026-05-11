@@ -1427,6 +1427,142 @@ small,
   }
 }
 
+/* Partner page — Existing partners grid (grouped by discipline)
+   ========================================================================== */
+.partner-network-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .partner-network-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .partner-network-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.partner-discipline {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.partner-discipline-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-2);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.partner-discipline ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.partner-discipline li {
+  font-size: 15px;
+  color: var(--color-text);
+  padding: 6px 0;
+  line-height: 1.4;
+}
+
+.partner-discipline li:not(:last-child) {
+  border-bottom: 1px solid var(--color-soft-white);
+}
+
+.partner-tag-inline {
+  display: block;
+  font-size: 12px;
+  color: var(--color-text-soft);
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* Partner page — Checkbox fieldsets (Areas of expertise, Geographic scope)
+   ========================================================================== */
+.form-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+.form-fieldset legend {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 0 8px;
+}
+
+.form-fieldset legend small {
+  font-weight: 400;
+  color: var(--color-text-soft);
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 600px) {
+  .check-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .check-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text);
+  transition: all var(--transition);
+}
+
+.checkbox-inline:hover {
+  border-color: var(--color-primary-soft);
+}
+
+.checkbox-inline:has(input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-weight: 500;
+}
+
+.checkbox-inline input {
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
 /* FAQ page — theme eyebrows and section width
    ========================================================================== */
 .faq-container {
