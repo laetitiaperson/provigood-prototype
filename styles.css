@@ -1427,6 +1427,380 @@ small,
   }
 }
 
+/* About page — pull quote hero variant (lighter, centered, no top accent)
+   ========================================================================== */
+.pull-quote--hero {
+  margin: var(--space-5) auto 0;
+  border-top: 0;
+  padding-top: 0;
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .pull-quote--hero {
+    font-size: 26px;
+  }
+}
+
+/* About page — Story timeline (3 steps: 2009 / 2018 / Today)
+   ========================================================================== */
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 1024px) {
+  .story-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.story-step {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  position: relative;
+  border-top: 4px solid var(--color-primary);
+}
+
+.story-step:nth-child(2) {
+  border-top-color: var(--color-accent);
+}
+
+.story-step:nth-child(3) {
+  border-top-color: var(--color-text);
+}
+
+.story-year {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: var(--space-2);
+}
+
+.story-step:nth-child(2) .story-year {
+  color: var(--color-accent-dark);
+  background: rgba(197, 218, 59, 0.2);
+}
+
+.story-step:nth-child(3) .story-year {
+  color: var(--color-white);
+  background: var(--color-text);
+}
+
+.story-step h3 {
+  font-size: 20px;
+  margin-bottom: var(--space-2);
+}
+
+.story-step p {
+  color: var(--color-text-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* About page — Values grid (3 cards)
+   ========================================================================== */
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.value-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  text-align: center;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.value-card:hover {
+  border-color: var(--color-primary-soft);
+  box-shadow: var(--shadow-md);
+}
+
+.value-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.value-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.value-card h3 {
+  font-size: 20px;
+  margin-bottom: var(--space-2);
+}
+
+.value-card p {
+  color: var(--color-text-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* About page — Vincent section (portrait + bio 2-col)
+   ========================================================================== */
+.vincent-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .vincent-grid {
+    grid-template-columns: 320px 1fr;
+    gap: var(--space-5);
+  }
+}
+
+.vincent-portrait {
+  margin: 0;
+  text-align: center;
+}
+
+.vincent-portrait-placeholder {
+  background: var(--color-soft-white);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-text-soft);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.vincent-portrait-placeholder svg {
+  width: 64px;
+  height: 64px;
+  opacity: 0.5;
+}
+
+.vincent-portrait-placeholder span {
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.vincent-portrait figcaption {
+  margin-top: var(--space-2);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.vincent-portrait figcaption strong {
+  display: block;
+  color: var(--color-text);
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.vincent-portrait figcaption span {
+  color: var(--color-text-soft);
+  font-size: 13px;
+}
+
+.vincent-bio h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: var(--space-3) 0 var(--space-1);
+}
+
+.vincent-bio h3:first-child {
+  margin-top: 0;
+}
+
+.vincent-bio p {
+  color: var(--color-text);
+  line-height: 1.7;
+  margin-bottom: var(--space-2);
+}
+
+.vincent-quote {
+  font-size: 18px;
+  font-style: italic;
+  color: var(--color-text);
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .vincent-quote {
+    font-size: 20px;
+  }
+}
+
+.vincent-actions {
+  margin-top: var(--space-3);
+}
+
+/* About page — Network list (10 expertise domains)
+   ========================================================================== */
+.network-list {
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .network-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.network-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition);
+}
+
+.network-item:hover {
+  border-color: var(--color-primary-soft);
+}
+
+.network-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.network-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.network-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 2px 0 2px;
+}
+
+.network-item p {
+  font-size: 14px;
+  color: var(--color-text-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* About page — Accreditations list (3 rich blocks)
+   ========================================================================== */
+.accreditations-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.accreditation {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .accreditation {
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-3);
+    align-items: start;
+  }
+}
+
+.accreditation-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.accreditation-badge svg {
+  width: 32px;
+  height: 32px;
+}
+
+.accreditation h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.accreditation-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin: 2px 0 var(--space-2);
+}
+
+.accreditation p {
+  color: var(--color-text-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Distribution page — embedded video (responsive 16:9, compact)
    ========================================================================== */
 .video-embed {
