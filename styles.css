@@ -1427,6 +1427,84 @@ small,
   }
 }
 
+/* About page — hero 2-column (text + side photo)
+   ========================================================================== */
+.about-hero {
+  padding: var(--section-pad) 0;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about-hero-grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.about-hero-text {
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .about-hero-text {
+    text-align: left;
+  }
+}
+
+.about-hero-text .eyebrow {
+  margin-bottom: var(--space-2);
+}
+
+.about-hero-text h1 {
+  margin-bottom: var(--space-3);
+}
+
+.about-hero-text .hero-sub {
+  margin-bottom: var(--space-3);
+}
+
+.about-hero-figure {
+  margin: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  max-width: 440px;
+  width: 100%;
+  justify-self: center;
+}
+
+@media (min-width: 1024px) {
+  .about-hero-figure {
+    max-width: 100%;
+    justify-self: end;
+  }
+}
+
+.about-hero-figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+/* Pull quote — hero variant overrides for the 2-col about hero */
+.about-hero .pull-quote--hero {
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 1024px) {
+  .about-hero .pull-quote--hero {
+    text-align: left;
+  }
+}
+
 /* About page — pull quote hero variant (lighter, centered, no top accent)
    ========================================================================== */
 .pull-quote--hero {
