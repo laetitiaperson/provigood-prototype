@@ -6,5 +6,5 @@
   <!-- White dot of the "i" -->
   <circle cx="16" cy="13" r="2" fill="#FFFFFF"/>
   <!-- Lime triangle above the dot, tilted ~20° (matches the wordmark accent) -->
-  <polygon points="16,4 19.5,9 12.5,9" fill="#C5DA3B" transform="rotate(20 16 7)"/>
+  <polygon points="16,2 20,9 12,9" fill="#C5DA3B" transform="rotate(20 16 5.5)"/>
 </svg>
