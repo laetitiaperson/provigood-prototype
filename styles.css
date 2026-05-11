@@ -2976,7 +2976,8 @@ small,
   flex-shrink: 0;
 }
 
-.method-head h3 {
+.method-head h3,
+.method-head h4 {
   margin: 0;
 }
 
