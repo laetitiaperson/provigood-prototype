@@ -2963,6 +2963,23 @@ small,
   letter-spacing: -0.02em;
 }
 
+/* Inline head: badge LEFT + title RIGHT (used on services.html method) */
+.method-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.method-head .method-num {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.method-head h3 {
+  margin: 0;
+}
+
 .method-step h3 {
   font-size: 18px;
   font-weight: 600;
