@@ -1427,6 +1427,27 @@ small,
   }
 }
 
+/* FAQ page — theme eyebrows and section width
+   ========================================================================== */
+.faq-container {
+  max-width: 880px;
+}
+
+.faq-theme-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+/* Smooth scroll offset for FAQ section anchor targets */
+.section[id^="theme-"] {
+  scroll-margin-top: 80px;
+}
+
 /* Blog landing — category chips
    ========================================================================== */
 .categories-head {
