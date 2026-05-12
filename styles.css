@@ -3500,6 +3500,11 @@ small,
   color: var(--color-accent);
 }
 
+.footer-phone-link {
+  display: inline-block;
+  margin-top: 2px;
+}
+
 .footer-socials {
   display: flex;
   gap: var(--space-1);
