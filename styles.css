@@ -4302,32 +4302,61 @@ body.home-clean .trust-bar {
   background: var(--color-white);
 }
 
-/* Photo band — full-width contextual image between sections */
-.photo-band {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-  height: 280px;
-  background: #111;
+/* Section split — text on the left, contextual thumbnail on the right
+   Stacks vertically on mobile (image after text). */
+.section-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: center;
 }
 
 @media (min-width: 768px) {
-  .photo-band {
-    height: 360px;
+  .section-split {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
   }
 }
 
-@media (min-width: 1280px) {
-  .photo-band {
-    height: 440px;
-  }
+.section-split-text {
+  text-align: left;
 }
 
-.photo-band img {
+.section-split-text h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-split-text .lead {
+  margin: 0 0 var(--space-3);
+}
+
+.section-split-text .cta-buttons {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.section-split-text .reassurance {
+  margin-top: var(--space-3);
+}
+
+.section-split-image {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.section-split-image img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
+}
+
+/* Industries 3-col modifier — overrides the default 4-col solutions-grid at desktop */
+@media (min-width: 1024px) {
+  .solutions-grid.solutions-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* Solutions grid (4-column responsive — for Our 360° Business Solutions + Our Clear Plan)
