@@ -368,6 +368,22 @@ small,
   font-size: 14px;
 }
 
+/* White background with lime border — used on the hero "Get in touch" CTA */
+.btn--accent-outline {
+  background: var(--color-white);
+  color: var(--color-text);
+  padding: 14px 30px;
+  border: 2px solid var(--color-accent);
+}
+
+.btn--accent-outline:hover {
+  background: var(--color-accent);
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
 /* Cards
    ========================================================================== */
 .card {
