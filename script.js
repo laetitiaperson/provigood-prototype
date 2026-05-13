@@ -189,6 +189,26 @@
     });
   }
 
+  // ---------- Testimonial form (testimonial.html) ----------
+  const testimonialForm = document.getElementById('testimonial-form');
+  if (testimonialForm) {
+    testimonialForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!testimonialForm.checkValidity()) {
+        testimonialForm.reportValidity();
+        return;
+      }
+      testimonialForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
+        el.hidden = true;
+      });
+      const success = testimonialForm.querySelector('.form-success');
+      if (success) {
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
   // ---------- YouTube IFrame API: enforce custom start/end times ----------
   // The native ?start= and ?end= URL parameters are unreliable; we use the
   // IFrame API to seek on ready and pause when the end time is reached.
