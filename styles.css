@@ -4318,6 +4318,20 @@ body.home-clean .trust-bar {
   background: var(--color-white);
 }
 
+/* Tighter vertical rhythm on the homepage: ~30% less air between sections.
+   Trust bar and the audience-split inline padding-top stay as overridden. */
+body.home-clean .section {
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  body.home-clean .section {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+}
+
 /* Section split — text on the left, contextual thumbnail on the right
    Stacks vertically on mobile (image after text). */
 .section-split {
