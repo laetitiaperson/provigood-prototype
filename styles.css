@@ -4450,10 +4450,16 @@ body.home-clean .section {
   list-style: none;
   padding: 0;
   margin: var(--space-3) auto var(--space-4);
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  max-width: 720px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2) var(--space-4);
+}
+
+@media (min-width: 600px) {
+  .success-bullets {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .success-bullets li {
