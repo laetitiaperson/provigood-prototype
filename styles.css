@@ -371,7 +371,7 @@ small,
 /* White background with lime border — used on the hero "Get in touch" CTA */
 .btn--accent-outline {
   background: var(--color-white);
-  color: var(--color-text);
+  color: var(--color-text-soft);
   padding: 14px 30px;
   border: 2px solid var(--color-accent);
 }
