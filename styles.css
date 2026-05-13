@@ -4368,6 +4368,14 @@ body.home-clean .trust-bar {
   object-fit: cover;
 }
 
+/* Reverse variant: image on the LEFT, text on the RIGHT (desktop only).
+   On mobile (1 col), text still comes first for natural reading order. */
+@media (min-width: 768px) {
+  .section-split--reverse .section-split-image {
+    order: -1;
+  }
+}
+
 /* Industries 3-col modifier — overrides the default 4-col solutions-grid at desktop */
 @media (min-width: 1024px) {
   .solutions-grid.solutions-grid--3 {
