@@ -4437,6 +4437,24 @@ body.home-clean .section {
   margin-bottom: var(--space-1);
 }
 
+/* Sector pictogram inside .solution-card (Industries we serve) */
+.industry-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-2);
+  color: var(--color-accent-dark);
+  background: rgba(197, 218, 59, 0.18);
+  border-radius: var(--radius-md);
+}
+
+.industry-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .solution-card p {
   color: var(--color-text-soft);
   font-size: 15px;
