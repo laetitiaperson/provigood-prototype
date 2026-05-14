@@ -4427,6 +4427,10 @@ body.home-clean .section {
 
   .section-split--text-wide .section-split-image {
     aspect-ratio: 4 / 3;
+    /* Align the (shorter) image to the top of the row so its top edge
+       lines up with the H2 of the wider text column, instead of being
+       vertically centered (which makes it visually sink below the title). */
+    align-self: start;
   }
 }
 
