@@ -4490,7 +4490,7 @@ body.home-clean .section {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
 }
 
 @media (min-width: 768px) {
