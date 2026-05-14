@@ -4479,9 +4479,9 @@ body.home-clean .section {
 .recognition-logo,
 .recognition-wordmark {
   height: 80px;
-  margin: 0 0 var(--space-2);
+  margin: 0 0 4px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
