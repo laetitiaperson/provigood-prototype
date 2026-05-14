@@ -4455,6 +4455,38 @@ body.home-clean .section {
   height: 24px;
 }
 
+/* Recognition card (Recognized & accredited section) — logo on top */
+.recognition-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.recognition-logo {
+  margin: 0 0 var(--space-2);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.recognition-logo img {
+  max-height: 100%;
+  max-width: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* When the card has no logo, reserve the same vertical space so the 3 cards
+   stay visually aligned on the same baseline. */
+.recognition-card--no-logo::before {
+  content: "";
+  display: block;
+  height: 72px;
+  margin-bottom: var(--space-2);
+}
+
 /* Industry card head: icon LEFT + title RIGHT, inline on the same row */
 .industry-head {
   display: flex;
