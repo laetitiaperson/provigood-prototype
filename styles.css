@@ -4418,10 +4418,15 @@ body.home-clean .section {
 
 /* Text-wide variant: text column gets ~60% of the width on desktop, so
    long headings (e.g. "Compostable coffee capsules, made in Vietnam")
-   can sit on a single line. */
+   can sit on a single line. The image slot becomes taller (4:3 instead
+   of 3:2) to balance the wider text block visually. */
 @media (min-width: 768px) {
   .section-split.section-split--text-wide {
     grid-template-columns: 1.6fr 1fr;
+  }
+
+  .section-split--text-wide .section-split-image {
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -4429,6 +4434,14 @@ body.home-clean .section {
   .section-split--text-wide .section-split-text h2 {
     white-space: nowrap;
   }
+}
+
+/* Allow individual section-split CTAs to be re-centered with the
+   .cta-buttons--centered modifier (overrides the default left alignment
+   .section-split-text applies). */
+.section-split-text .cta-buttons.cta-buttons--centered {
+  justify-content: center;
+  align-items: center;
 }
 
 /* Industries 3-col modifier — overrides the default 4-col solutions-grid at desktop */
