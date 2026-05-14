@@ -3275,6 +3275,50 @@ small,
   flex-grow: 1;
 }
 
+/* Quick facts strip — small definition list right after the hero on
+   key pages (about, services). Visually subtle, but semantically rich:
+   <dl><dt>Label</dt><dd>Value</dd></dl> gives search engines and LLM
+   crawlers a clean structured fact set they can extract verbatim. */
+.quick-facts {
+  background: var(--color-soft-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+}
+
+.quick-facts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.quick-facts-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.quick-facts-item dt {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
+  margin: 0;
+}
+
+.quick-facts-item dd {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* Reusable author stack: bold name on its own line, italic lighter
    title/company on a second line with a clear visual gap. Apply to any
    <cite> (or other inline element) that wraps "Name<span>Title</span>".
