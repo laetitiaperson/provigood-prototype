@@ -4467,7 +4467,7 @@ body.home-clean .section {
 .success-bullets {
   list-style: none;
   padding: 0;
-  margin: var(--space-3) auto var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
   max-width: 720px;
   display: grid;
   grid-template-columns: 1fr;
@@ -4477,6 +4477,15 @@ body.home-clean .section {
 @media (min-width: 600px) {
   .success-bullets {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* When the bullets live inside a section-split text column, the text column
+   is already half-width on desktop — keep 2 cols only if the viewport is wide
+   enough; otherwise stack to 1 col so each bullet has breathing room. */
+@media (max-width: 1100px) {
+  .section-split .success-bullets {
+    grid-template-columns: 1fr;
   }
 }
 
