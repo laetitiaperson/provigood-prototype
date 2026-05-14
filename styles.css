@@ -4383,6 +4383,18 @@ body.home-clean .section {
   object-fit: cover;
 }
 
+/* When the section-split image slot holds a YouTube iframe, use 16:9 */
+.section-split-image--video {
+  aspect-ratio: 16 / 9;
+}
+
+.section-split-image--video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* Reverse variant: image on the LEFT, text on the RIGHT (desktop only).
    On mobile (1 col), text still comes first for natural reading order. */
 @media (min-width: 768px) {
