@@ -4318,10 +4318,17 @@ body.home-clean .trust-bar {
   background: var(--color-white);
 }
 
-/* Disable the warm/mint gradient blobs on .cta-final inside home-clean pages */
+/* Force a pure white background on the final CTA inside home-clean pages.
+   Belt-and-suspenders: explicit white bg + disable the warm/mint gradient blobs. */
+body.home-clean .cta-final {
+  background: var(--color-white) !important;
+}
+
 body.home-clean .cta-final::before,
 body.home-clean .cta-final::after {
-  display: none;
+  display: none !important;
+  background: none !important;
+  content: none !important;
 }
 
 /* Tighter vertical rhythm on the homepage: ~30% less air between sections.
