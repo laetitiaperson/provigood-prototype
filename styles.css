@@ -4523,6 +4523,32 @@ body.home-clean .section {
   margin-bottom: var(--space-1);
 }
 
+/* Solution-card slot used as a photo tile (Partner page 6th cell:
+   fills the empty spot below "Distribution partnerships" / right of
+   "Consultancy collaborations" with the partnerships-market image). */
+.solution-card--image {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.solution-card--image:hover {
+  border: 0;
+  box-shadow: none;
+}
+
+.solution-card--image picture,
+.solution-card--image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+}
+
 /* Sector pictogram inside .solution-card (Industries we serve) */
 .industry-icon {
   display: inline-flex;
