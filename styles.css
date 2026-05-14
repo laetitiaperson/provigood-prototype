@@ -4549,6 +4549,80 @@ body.home-clean .section {
   margin-top: auto;
 }
 
+/* Olivo body copy (Distribution > Olivo) — lime bullets matching services page */
+.olivo-body {
+  max-width: 880px;
+  margin: var(--space-4) auto 0;
+}
+
+.olivo-body h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.olivo-body p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 var(--space-3);
+}
+
+.olivo-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.olivo-bullets li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.olivo-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.olivo-bullets--numbered {
+  list-style: none;
+  counter-reset: olivo;
+}
+
+.olivo-bullets--numbered li {
+  counter-increment: olivo;
+  padding-left: 38px;
+}
+
+.olivo-bullets--numbered li::before {
+  content: counter(olivo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 50%;
+}
+
 /* Service-item slot used as a photo tile (Corporate services 6th cell) */
 .service-item--image {
   margin: 0;
