@@ -4478,6 +4478,13 @@ body.home-clean .section {
   margin: 0;
 }
 
+.category-intro {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text);
+  margin: var(--space-3) 0 0;
+}
+
 .service-list {
   display: grid;
   grid-template-columns: 1fr;
