@@ -4455,6 +4455,92 @@ body.home-clean .section {
   height: 24px;
 }
 
+/* Services page (services.html) — categories with sub-services
+   ========================================================================== */
+.services-h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .services-h1 {
+    font-size: 48px;
+  }
+}
+
+.category-title {
+  margin-bottom: var(--space-1);
+}
+
+.category-subtitle {
+  font-size: 18px;
+  color: var(--color-text-soft);
+  margin: 0;
+}
+
+.service-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .service-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.service-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-3);
+  flex-grow: 1;
+}
+
+.service-item ul li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  margin-bottom: 4px;
+}
+
+.service-item ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.service-item .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 /* Recognized & accredited grid — borderless, centered, logos aligned */
 .recognition-grid {
   align-items: start;
