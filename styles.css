@@ -2420,6 +2420,16 @@ small,
   letter-spacing: 0.02em;
 }
 
+.vincent-portrait img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin: 0 auto;
+}
+
 .vincent-portrait figcaption {
   margin-top: var(--space-2);
   font-size: 14px;
