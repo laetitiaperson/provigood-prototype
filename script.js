@@ -125,15 +125,23 @@
 
     // Initial: pick variant from ?type=... URL param
     const params = new URLSearchParams(window.location.search);
-    const initialType = params.get('type');
-    const validTypes = ['consulting', 'recruitment', 'training', 'olivo', 'coffee'];
+    const rawType = params.get('type');
+    // Backward-compat: old service-specific types now all route to "services"
+    const TYPE_ALIASES = {
+      consulting: 'services',
+      recruitment: 'services',
+      training: 'services',
+      'corporate-services': 'services',
+    };
+    const initialType = TYPE_ALIASES[rawType] || rawType;
+    const validTypes = ['services', 'olivo', 'coffee', 'partnership'];
 
     if (initialType && validTypes.includes(initialType)) {
       const matchedRadio = document.querySelector(`input[name="contact-type"][value="${initialType}"]`);
       if (matchedRadio) matchedRadio.checked = true;
       showVariant(initialType);
     } else {
-      showVariant('consulting');
+      showVariant('services');
     }
 
     // Switch on radio change

@@ -167,27 +167,11 @@
           <legend>What's your project about?</legend>
           <div class="type-selector-grid">
             <label class="type-chip">
-              <input type="radio" name="contact-type" value="consulting" data-type="consulting" checked>
+              <input type="radio" name="contact-type" value="services" data-type="services" checked>
               <span class="type-chip-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/><path d="M12 2v8"/><path d="m9 5 3-3 3 3"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
               </span>
-              <span class="type-chip-label">Consulting<small>360° advisory</small></span>
-            </label>
-
-            <label class="type-chip">
-              <input type="radio" name="contact-type" value="recruitment" data-type="recruitment">
-              <span class="type-chip-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg>
-              </span>
-              <span class="type-chip-label">Recruitment<small>Executive search</small></span>
-            </label>
-
-            <label class="type-chip">
-              <input type="radio" name="contact-type" value="training" data-type="training">
-              <span class="type-chip-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-              </span>
-              <span class="type-chip-label">Training<small>Programs &amp; coaching</small></span>
+              <span class="type-chip-label">Services<small>360° business solutions</small></span>
             </label>
 
             <label class="type-chip">
@@ -195,7 +179,7 @@
               <span class="type-chip-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
               </span>
-              <span class="type-chip-label">Olivo<small>Cold logistics</small></span>
+              <span class="type-chip-label">Olivo Cold Logistics<small>Passive cold chain</small></span>
             </label>
 
             <label class="type-chip">
@@ -203,7 +187,15 @@
               <span class="type-chip-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
               </span>
-              <span class="type-chip-label">Coffee capsules<small>Em Oi Café / Le Caiffa</small></span>
+              <span class="type-chip-label">Em Oi Café &amp; Le Caiffa<small>Compostable coffee capsules</small></span>
+            </label>
+
+            <label class="type-chip">
+              <input type="radio" name="contact-type" value="partnership" data-type="partnership">
+              <span class="type-chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="type-chip-label">Partnership<small>Join our partner network</small></span>
             </label>
           </div>
         </fieldset>
@@ -244,26 +236,25 @@
             </div>
           </div>
 
-          <!-- ===== Consulting variant ===== -->
-          <div class="form-variant" data-variant="consulting">
-            <h3 class="variant-title">About your consulting project</h3>
+          <!-- ===== Services variant (consolidated: consulting + recruitment + training + corporate services) ===== -->
+          <div class="form-variant" data-variant="services">
+            <h3 class="variant-title">About your project</h3>
             <div class="form-grid">
               <div class="form-field">
-                <label for="cf-c-type">Project type</label>
-                <select id="cf-c-type" name="consulting_type">
+                <label for="cf-s-service">Provigood service of interest</label>
+                <select id="cf-s-service" name="services_type">
                   <option value="">Choose one…</option>
-                  <option>Market entry</option>
-                  <option>Scale-up &amp; growth</option>
-                  <option>Sales acceleration</option>
-                  <option>Sourcing</option>
-                  <option>Mergers &amp; acquisitions</option>
-                  <option>Corporate services</option>
+                  <option>360° consulting (market entry, growth, sourcing, M&amp;A)</option>
+                  <option>Executive search and recruitment</option>
+                  <option>Corporate training and coaching</option>
+                  <option>Corporate services (legal, finance, admin)</option>
+                  <option>Multiple services</option>
                   <option>Other / not sure yet</option>
                 </select>
               </div>
               <div class="form-field">
-                <label for="cf-c-timeline">Timeline</label>
-                <select id="cf-c-timeline" name="consulting_timeline">
+                <label for="cf-s-timeline">Timeline</label>
+                <select id="cf-s-timeline" name="services_timeline">
                   <option value="">Choose one…</option>
                   <option>ASAP</option>
                   <option>Within 1–3 months</option>
@@ -272,105 +263,14 @@
                 </select>
               </div>
               <div class="form-field">
-                <label for="cf-c-budget">Indicative budget <small>(optional)</small></label>
-                <select id="cf-c-budget" name="consulting_budget">
+                <label for="cf-s-budget">Indicative budget <small>(optional)</small></label>
+                <select id="cf-s-budget" name="services_budget">
                   <option value="">Prefer not to say</option>
                   <option>Under US$25k</option>
                   <option>US$25k – 50k</option>
                   <option>US$50k – 100k</option>
                   <option>US$100k+</option>
                   <option>To be defined together</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- ===== Recruitment variant ===== -->
-          <div class="form-variant" data-variant="recruitment" hidden>
-            <h3 class="variant-title">About the role you're hiring for</h3>
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="cf-r-position">Position to fill</label>
-                <input type="text" id="cf-r-position" name="recruitment_position" placeholder="e.g. Sales Director, Vietnam">
-              </div>
-              <div class="form-field">
-                <label for="cf-r-sector">Sector</label>
-                <select id="cf-r-sector" name="recruitment_sector">
-                  <option value="">Choose one…</option>
-                  <option>Food &amp; Beverage</option>
-                  <option>FMCG / CPG</option>
-                  <option>Agribusiness</option>
-                  <option>Hospitality</option>
-                  <option>Retail</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="cf-r-seniority">Seniority</label>
-                <select id="cf-r-seniority" name="recruitment_seniority">
-                  <option value="">Choose one…</option>
-                  <option>Senior manager</option>
-                  <option>Director</option>
-                  <option>VP / Country head</option>
-                  <option>C-level</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="cf-r-timeline">Hiring timeline</label>
-                <select id="cf-r-timeline" name="recruitment_timeline">
-                  <option value="">Choose one…</option>
-                  <option>ASAP</option>
-                  <option>Within 1–3 months</option>
-                  <option>Within 3–6 months</option>
-                  <option>Flexible</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- ===== Training variant ===== -->
-          <div class="form-variant" data-variant="training" hidden>
-            <h3 class="variant-title">About your training program</h3>
-            <div class="form-grid">
-              <div class="form-field">
-                <label for="cf-t-topic">Topic area</label>
-                <select id="cf-t-topic" name="training_topic">
-                  <option value="">Choose one…</option>
-                  <option>Leadership</option>
-                  <option>Sales &amp; commercial excellence</option>
-                  <option>AI productivity</option>
-                  <option>Cultural intelligence</option>
-                  <option>Project management</option>
-                  <option>Other / custom</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="cf-t-audience">Audience size</label>
-                <select id="cf-t-audience" name="training_audience">
-                  <option value="">Choose one…</option>
-                  <option>1 – 10 people</option>
-                  <option>10 – 25 people</option>
-                  <option>25 – 50 people</option>
-                  <option>50+ people</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="cf-t-format">Preferred format</label>
-                <select id="cf-t-format" name="training_format">
-                  <option value="">Choose one…</option>
-                  <option>In-person</option>
-                  <option>Online</option>
-                  <option>Hybrid</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="cf-t-when">When</label>
-                <select id="cf-t-when" name="training_when">
-                  <option value="">Choose one…</option>
-                  <option>This month</option>
-                  <option>Within 1–3 months</option>
-                  <option>Within 6 months</option>
-                  <option>Flexible</option>
                 </select>
               </div>
             </div>
@@ -457,6 +357,36 @@
               <div class="form-field">
                 <label for="cf-co-region">Country / region</label>
                 <input type="text" id="cf-co-region" name="coffee_region" placeholder="e.g. Vietnam, France, Asia-Pacific">
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Partnership variant ===== -->
+          <div class="form-variant" data-variant="partnership" hidden>
+            <h3 class="variant-title">About your partnership proposal</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="cf-p-type">Type of partner</label>
+                <select id="cf-p-type" name="partnership_type">
+                  <option value="">Choose one…</option>
+                  <option>Specialized firm or agency</option>
+                  <option>Independent expert or freelancer</option>
+                  <option>Institutional partner (chamber, association, agency)</option>
+                  <option>Sub-distributor (Olivo or Em Oi Café &amp; Le Caiffa)</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="cf-p-expertise">Area(s) of expertise</label>
+                <input type="text" id="cf-p-expertise" name="partnership_expertise" placeholder="e.g. legal, marketing, logistics, HR">
+              </div>
+              <div class="form-field">
+                <label for="cf-p-geo">Geographic coverage</label>
+                <input type="text" id="cf-p-geo" name="partnership_geo" placeholder="e.g. Vietnam, ASEAN, France">
+              </div>
+              <div class="form-field">
+                <label for="cf-p-linkedin">LinkedIn URL <small>(optional)</small></label>
+                <input type="url" id="cf-p-linkedin" name="partnership_linkedin" placeholder="https://linkedin.com/in/...">
               </div>
             </div>
           </div>
@@ -564,6 +494,6 @@
     </div>
   </footer>
 
-  <script src="../script.js"></script>
+  <script src="../script.js?v=20260514a"></script>
 </body>
 </html>
