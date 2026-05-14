@@ -4560,7 +4560,7 @@ body.home-clean .section {
 
 @media (min-width: 900px) {
   .esg-split {
-    grid-template-columns: 6fr 4fr;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
   }
 }
