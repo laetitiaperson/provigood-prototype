@@ -4425,8 +4425,14 @@ body.home-clean .section {
     grid-template-columns: 1.6fr 1fr;
   }
 
+  /* Make the image fill the FULL height of the wider text column so that
+     image top == text top and image bottom == text bottom, removing any
+     ambiguity about vertical centering. The image inside the figure
+     already uses object-fit: cover, so it crops gracefully. */
   .section-split--text-wide .section-split-image {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: auto;
+    align-self: stretch;
+    height: 100%;
   }
 }
 
