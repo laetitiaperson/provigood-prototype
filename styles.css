@@ -4549,6 +4549,63 @@ body.home-clean .section {
   margin-top: auto;
 }
 
+/* ESG split — text LEFT, mosaic image RIGHT (Distribution > Olivo)
+   Stacks vertically on mobile (image below text). */
+.esg-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .esg-split {
+    grid-template-columns: 6fr 4fr;
+    gap: var(--space-6);
+  }
+}
+
+.esg-split-text {
+  text-align: left;
+}
+
+.esg-split-text h2 {
+  margin-bottom: var(--space-2);
+}
+
+.esg-split-text .lead {
+  margin: 0 0 var(--space-3);
+}
+
+.esg-split-text .cta-buttons {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.esg-split-image {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.esg-split-image picture,
+.esg-split-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.esg-split-image figcaption {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+  text-align: center;
+  margin-top: var(--space-1);
+}
+
 /* Olivo body copy (Distribution > Olivo) — lime bullets matching services page */
 .olivo-body {
   max-width: 880px;
