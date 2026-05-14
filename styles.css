@@ -4416,6 +4416,21 @@ body.home-clean .section {
   }
 }
 
+/* Text-wide variant: text column gets ~60% of the width on desktop, so
+   long headings (e.g. "Compostable coffee capsules, made in Vietnam")
+   can sit on a single line. */
+@media (min-width: 768px) {
+  .section-split.section-split--text-wide {
+    grid-template-columns: 1.6fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-split--text-wide .section-split-text h2 {
+    white-space: nowrap;
+  }
+}
+
 /* Industries 3-col modifier — overrides the default 4-col solutions-grid at desktop */
 @media (min-width: 1024px) {
   .solutions-grid.solutions-grid--3 {
