@@ -3275,18 +3275,27 @@ small,
   flex-grow: 1;
 }
 
-.testimonial cite {
+/* Reusable author stack: bold name on its own line, italic lighter
+   title/company on a second line with a clear visual gap. Apply to any
+   <cite> (or other inline element) that wraps "Name<span>Title</span>".
+   Used on the homepage testimonials and intended for any future quote
+   block where authorship needs the same two-line treatment. */
+.author-stack {
+  display: block;
   font-style: normal;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
+  line-height: 1.4;
 }
 
-.testimonial cite span {
+.author-stack > span {
   display: block;
+  margin-top: 4px;
+  font-size: 13px;
   font-weight: 400;
+  font-style: italic;
   color: var(--color-text-soft);
-  margin-top: 2px;
 }
 
 /* FAQ
