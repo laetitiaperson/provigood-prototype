@@ -4373,12 +4373,13 @@ body.home-clean .section {
   margin: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
+  aspect-ratio: 3 / 2;
 }
 
 .section-split-image img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
