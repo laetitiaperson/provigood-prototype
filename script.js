@@ -151,7 +151,61 @@
       });
     });
 
-    // Submit handler — fake submission, show success state
+    // Submit handler — opens the user's mail client with a pre-filled
+    // message (mailto: fallback), then shows the success state.
+    // This is the prototype/validation behaviour. When a real backend
+    // (Formspree, Cloudflare Worker, etc.) is wired up later, replace
+    // the mailto block with a fetch() POST.
+    const FIELD_LABELS = {
+      name: 'Full name',
+      email: 'Work email',
+      company: 'Company',
+      role: 'Your role',
+      country: 'Country / region',
+      phone: 'Phone',
+      services_type: 'Provigood service',
+      services_timeline: 'Timeline',
+      services_budget: 'Indicative budget',
+      olivo_need: 'Type of need',
+      olivo_volume: 'Estimated volume',
+      olivo_usecase: 'Use case',
+      olivo_region: 'Region of operation',
+      coffee_line: 'Capsule line',
+      coffee_usecase: 'Use case',
+      coffee_volume: 'Monthly volume',
+      coffee_region: 'Country / region',
+      partnership_type: 'Type of partner',
+      partnership_expertise: 'Areas of expertise',
+      partnership_geo: 'Geographic coverage',
+      partnership_linkedin: 'LinkedIn URL',
+      message: 'Message',
+    };
+    const TYPE_SUBJECT = {
+      services: 'Services',
+      olivo: 'Olivo Cold Logistics',
+      coffee: 'Em Oi Café & Le Caiffa',
+      partnership: 'Partnership',
+    };
+
+    function buildMailto() {
+      const fd = new FormData(contactForm);
+      // Type chips sit outside the form, so read from the checked radio directly
+      const checkedRadio = document.querySelector('input[name="contact-type"]:checked');
+      const type = (checkedRadio && checkedRadio.value) || 'services';
+      const subject = 'Provigood inquiry: ' + (TYPE_SUBJECT[type] || 'General');
+      const lines = [];
+      for (const [key, label] of Object.entries(FIELD_LABELS)) {
+        const val = fd.get(key);
+        if (val && String(val).trim()) {
+          lines.push(label + ': ' + val);
+        }
+      }
+      const body = lines.join('\n') +
+        '\n\n— Sent from the Provigood website contact form.';
+      return 'mailto:contact@provigood.com?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       // Basic native validation already handled via `required` attrs
@@ -160,11 +214,13 @@
         return;
       }
 
-      // Hide everything except the success block
+      // 1) Open the user's mail client with a pre-filled message
+      window.location.href = buildMailto();
+
+      // 2) Show the success state in the page so the user has visual feedback
       contactForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
         el.hidden = true;
       });
-      // Also hide the type selector
       const selector = document.querySelector('.type-selector');
       if (selector) selector.hidden = true;
 
