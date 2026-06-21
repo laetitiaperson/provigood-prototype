@@ -176,7 +176,18 @@
       <nav class="main-nav" aria-label="Primary">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link">Homepage</a></li>
-          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li class="has-dropdown">
+            <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              Services
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="services.html#cat-market-entry">Market entry</a></li>
+              <li><a href="services.html#cat-business-dev">Business development</a></li>
+              <li><a href="services.html#cat-team">Team empowerment</a></li>
+              <li><a href="services.html#cat-corporate">Corporate services</a></li>
+            </ul>
+          </li>
           <li class="has-dropdown">
             <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
               Distribution
@@ -213,7 +224,13 @@
     </div>
     <nav class="drawer-nav" aria-label="Mobile primary">
       <a href="index.html">Homepage</a>
-      <a href="services.html">Services</a>
+      <details>
+        <summary>Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <a href="services.html#cat-market-entry">Market entry</a>
+        <a href="services.html#cat-business-dev">Business development</a>
+        <a href="services.html#cat-team">Team empowerment</a>
+        <a href="services.html#cat-corporate">Corporate services</a>
+      </details>
       <details>
         <summary>Distribution <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><polyline points="6 9 12 15 18 9"/></svg></summary>
         <a href="distribution-olivo.html">Olivo Cold Logistics</a>
@@ -408,7 +425,13 @@
         <div>
           <h4>Services</h4>
           <ul class="footer-list">
-            <li><a href="services.html">Services</a></li>
+            <li><details>
+        <summary>Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px"><polyline points="6 9 12 15 18 9"/></svg></summary>
+        <a href="services.html#cat-market-entry">Market entry</a>
+        <a href="services.html#cat-business-dev">Business development</a>
+        <a href="services.html#cat-team">Team empowerment</a>
+        <a href="services.html#cat-corporate">Corporate services</a>
+      </details></li>
             <li><a href="distribution.html">Distribution</a></li>
             <li><a href="distribution-olivo.html">Olivo Cold Logistics</a></li>
             <li><a href="distribution-coffee.html">Le Caiffa &amp; Em Oi Café</a></li>
