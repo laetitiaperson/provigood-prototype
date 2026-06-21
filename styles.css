@@ -4544,6 +4544,23 @@ body.home-clean .section {
   }
 }
 
+/* Key Achievements infographic — full-width centered figure sitting under
+   a centered section-head. Designed for a 3:2 graphic with on-image text:
+   big enough that labels stay readable, capped so it never feels huge on
+   ultra-wide viewports. */
+.key-achievements-figure {
+  margin: var(--space-4) auto 0;
+  max-width: 1100px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.key-achievements-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Text-wide variant: text column gets ~60% of the width on desktop, so
    long headings (e.g. "Compostable coffee capsules, made in Vietnam")
    can sit on a single line. The image slot becomes taller (4:3 instead
