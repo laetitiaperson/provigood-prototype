@@ -426,7 +426,9 @@ small,
   height: 72px;
 }
 
-/* Logo: brand-true rendering (Provigood + lime triangle on the "i") */
+/* Logo: official brand artwork (Provigood + lime triangle on the "i").
+   Renders the images/logo-provigood.png file. Old text-based markup
+   (.logo-text / .logo-i) is kept as a no-image fallback. */
 .logo {
   display: inline-flex;
   align-items: center;
@@ -442,12 +444,36 @@ small,
   color: var(--color-primary);
 }
 
+.logo-img {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: none;
+  aspect-ratio: 600 / 166;
+}
+
+@media (min-width: 768px) {
+  .logo-img {
+    height: 36px;
+  }
+}
+
+.logo-img--white {
+  /* Footer variant — light text on dark background */
+}
+
+/* Footer logo can be a bit bigger */
+.site-footer .logo-img {
+  height: 40px;
+}
+
 .logo-text {
   position: relative;
   display: inline-block;
 }
 
-/* Lime triangle accent over the "i" — signature brand element */
+/* Lime triangle accent over the "i" — signature brand element, kept as
+   a CSS-only fallback for any place that still uses the text rendering */
 .logo-i {
   position: relative;
   display: inline-block;
