@@ -183,7 +183,7 @@
     const TYPE_SUBJECT = {
       services: 'Services',
       olivo: 'Olivo Cold Logistics',
-      coffee: 'Em Oi Café & Le Caiffa',
+      coffee: 'Le Caiffa coffee capsules',
       partnership: 'Partnership',
     };
 
