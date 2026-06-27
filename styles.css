@@ -449,7 +449,6 @@ small,
   height: 32px;
   width: auto;
   max-width: none;
-  aspect-ratio: 600 / 166;
 }
 
 @media (min-width: 768px) {
