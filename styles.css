@@ -962,6 +962,22 @@ small,
   }
 }
 
+/* Larger trust-logo modifier — for square / tightly-cropped logos
+   that look undersized at the standard 64 px height. */
+.trust-logo--lg.trust-logo--img {
+  height: 80px;
+  min-width: 80px;
+  max-width: 130px;
+}
+
+@media (min-width: 768px) {
+  .trust-logo--lg.trust-logo--img {
+    height: 88px;
+    min-width: 88px;
+    max-width: 140px;
+  }
+}
+
 /* Why Vietnam — text + side photo
    ========================================================================== */
 .why-vietnam h2 {
