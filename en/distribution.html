@@ -127,23 +127,11 @@
       margin: 0;
       color: var(--color-text-soft, var(--color-text));
     }
-
-    /* Feature photo below the two cards */
-    .distribution-feature-photo {
-      margin: var(--space-5) 0 0;
-    }
-    .distribution-feature-photo img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: var(--radius-lg);
-    }
-    .distribution-feature-photo figcaption {
-      margin-top: var(--space-2);
-      font-size: 13px;
-      color: var(--color-text-soft, var(--color-text));
-      text-align: right;
+    .distribution-card-credit {
+      margin-top: 6px !important;
+      font-size: 12px;
       font-style: italic;
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -259,27 +247,22 @@
 
         <div class="distribution-cards">
           <a href="distribution-olivo.html" class="distribution-card-link" aria-label="Olivo Cold Logistics, learn more">
-            <img class="distribution-card-media" src="https://picsum.photos/seed/olivo-card/600/400" alt="Olivo Cold Logistics insulated container, photo placeholder" loading="lazy" width="600" height="400">
+            <img class="distribution-card-media" src="../images/olivo-colruyt.jpg" alt="Olivo Cold Logistics insulated containers lined up on a warehouse floor at the Colruyt distribution centre, with an operator on an electric pallet truck." loading="lazy" width="1400" height="932">
             <div class="distribution-card-body">
               <h2>Olivo Cold Logistics</h2>
               <p>Passive cold-chain insulated containers for last-mile delivery.</p>
+              <p class="distribution-card-credit">Olivo_Colruyt_7_6_2024 photo credit ©Céline_Vautey</p>
             </div>
           </a>
 
           <a href="distribution-coffee.html" class="distribution-card-link" aria-label="Le Caiffa coffee capsules, learn more">
-            <img class="distribution-card-media" src="https://picsum.photos/seed/coffee-card/600/400" alt="Vietnamese coffee beans and compostable capsules, photo placeholder" loading="lazy" width="600" height="400">
+            <img class="distribution-card-media" src="../images/cafe-le-caiffa.jpg" alt="Le Caiffa coffee capsules on a tray with an espresso cup, Vietnam." loading="lazy" width="1600" height="834">
             <div class="distribution-card-body">
               <h2>Le Caiffa coffee capsules</h2>
               <p>Fully compostable coffee capsules made in Vietnam.</p>
             </div>
           </a>
         </div>
-
-        <figure class="distribution-feature-photo">
-          <img src="../images/olivo-colruyt.jpg" alt="Olivo Cold Logistics insulated containers lined up on a warehouse floor at the Colruyt distribution centre, with an operator on an electric pallet truck moving one of the teal containers."
-               loading="lazy" width="1400" height="932">
-          <figcaption>Olivo_Colruyt_7_6_2024 photo credit ©Céline_Vautey</figcaption>
-        </figure>
       </div>
     </section>
 
