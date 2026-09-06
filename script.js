@@ -72,6 +72,9 @@
     toggle.setAttribute('aria-expanded', 'false');
 
     toggle.addEventListener('click', (e) => {
+      // Anchor toggles (e.g. Services -> services.html) must navigate on
+      // click; the hover / focus-within rules keep the dropdown reachable.
+      if (toggle.tagName === 'A') return;
       e.preventDefault();
       const isOpen = menu.classList.contains('is-open');
       // Close all
