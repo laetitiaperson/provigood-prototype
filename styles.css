@@ -3659,6 +3659,42 @@ small,
   color: var(--color-accent);
 }
 
+/* Footer accordion (Services / Distribution) — each sub-link on its
+   own line, slightly indented to show hierarchy under the summary. */
+.footer-list details > summary {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  list-style: none;
+  transition: color var(--transition);
+}
+
+.footer-list details > summary::-webkit-details-marker,
+.footer-list details > summary::marker {
+  display: none;
+}
+
+.footer-list details[open] > summary,
+.footer-list details > summary:hover {
+  color: var(--color-accent);
+}
+
+.footer-list details > summary svg {
+  transition: transform var(--transition);
+}
+
+.footer-list details[open] > summary svg {
+  transform: rotate(180deg);
+}
+
+.footer-list details > a {
+  display: block;
+  padding-left: 12px;
+  margin-top: 8px;
+}
+
 .footer-contact {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.75);
