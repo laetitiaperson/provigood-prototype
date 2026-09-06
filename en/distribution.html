@@ -127,11 +127,23 @@
       margin: 0;
       color: var(--color-text-soft, var(--color-text));
     }
+    .distribution-card-media-wrap {
+      position: relative;
+      overflow: hidden;
+    }
     .distribution-card-credit {
-      margin-top: 6px !important;
-      font-size: 12px;
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      padding: 3px 8px;
+      font-size: 11px;
       font-style: italic;
-      opacity: 0.7;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 3px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
     }
   </style>
 </head>
@@ -247,11 +259,13 @@
 
         <div class="distribution-cards">
           <a href="distribution-olivo.html" class="distribution-card-link" aria-label="Olivo Cold Logistics, learn more">
-            <img class="distribution-card-media" src="../images/olivo-colruyt.jpg" alt="Olivo Cold Logistics insulated containers lined up on a warehouse floor at the Colruyt distribution centre, with an operator on an electric pallet truck." loading="lazy" width="1400" height="932">
+            <div class="distribution-card-media-wrap">
+              <img class="distribution-card-media" src="../images/olivo-colruyt.jpg" alt="Olivo Cold Logistics insulated containers lined up on a warehouse floor at the Colruyt distribution centre, with an operator on an electric pallet truck." loading="lazy" width="1400" height="932">
+              <span class="distribution-card-credit">Olivo_Colruyt_7_6_2024 photo credit ©Céline_Vautey</span>
+            </div>
             <div class="distribution-card-body">
               <h2>Olivo Cold Logistics</h2>
               <p>Passive cold-chain insulated containers for last-mile delivery.</p>
-              <p class="distribution-card-credit">Olivo_Colruyt_7_6_2024 photo credit ©Céline_Vautey</p>
             </div>
           </a>
 
