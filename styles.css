@@ -5128,7 +5128,7 @@ body.home-clean .section {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
-  align-items: start;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
