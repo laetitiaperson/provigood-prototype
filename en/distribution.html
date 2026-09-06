@@ -127,6 +127,24 @@
       margin: 0;
       color: var(--color-text-soft, var(--color-text));
     }
+
+    /* Feature photo below the two cards */
+    .distribution-feature-photo {
+      margin: var(--space-5) 0 0;
+    }
+    .distribution-feature-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+    }
+    .distribution-feature-photo figcaption {
+      margin-top: var(--space-2);
+      font-size: 13px;
+      color: var(--color-text-soft, var(--color-text));
+      text-align: right;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -157,10 +175,10 @@
             </ul>
           </li>
           <li class="has-dropdown">
-            <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+            <a href="distribution.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
               Distribution
               <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
+            </a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="distribution-olivo.html">Olivo Cold Logistics</a></li>
               <li><a href="distribution-coffee.html">Le Caiffa coffee capsules</a></li>
@@ -256,6 +274,12 @@
             </div>
           </a>
         </div>
+
+        <figure class="distribution-feature-photo">
+          <img src="../images/olivo-colruyt.jpg" alt="Olivo Cold Logistics insulated containers lined up on a warehouse floor at the Colruyt distribution centre, with an operator on an electric pallet truck moving one of the teal containers."
+               loading="lazy" width="1400" height="932">
+          <figcaption>Olivo_Colruyt_7_6_2024 photo credit ©Céline_Vautey</figcaption>
+        </figure>
       </div>
     </section>
 
