@@ -976,6 +976,22 @@ small,
   }
 }
 
+/* Slight boost modifier — for landscape logos whose brand mark reads
+   small at the default trust-bar height (Vincent Sep 2026 request:
+   LDC, UPSA, Konoike, CLK, CargoTeam, Marou, Annam Gourmet, Food
+   Source, LSH, Pizza 4P's). About +30% vs default. */
+.trust-logo--boost.trust-logo--img {
+  height: 76px;
+  max-width: 220px;
+}
+
+@media (min-width: 768px) {
+  .trust-logo--boost.trust-logo--img {
+    height: 84px;
+    max-width: 240px;
+  }
+}
+
 /* Why Vietnam — text + side photo
    ========================================================================== */
 .why-vietnam h2 {
