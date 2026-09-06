@@ -446,24 +446,23 @@ small,
 
 .logo-img {
   display: block;
-  height: 32px;
-  width: auto;
+  width: 150px;
+  height: auto;
   max-width: none;
 }
 
 @media (min-width: 768px) {
   .logo-img {
-    height: 36px;
+    width: 190px;
   }
 }
 
 .logo-img--white {
-  /* Footer variant — light text on dark background */
+  /* Footer variant — white artwork on the dark footer background */
 }
 
-/* Footer logo can be a bit bigger */
 .site-footer .logo-img {
-  height: 56px;
+  width: 220px;
 }
 
 .logo-text {
