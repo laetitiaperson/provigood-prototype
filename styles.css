@@ -5123,6 +5123,147 @@ body.home-clean .section {
   border-radius: 50%;
 }
 
+/* Le Caïffa product page — 5-section content stack + closing showcase */
+.caiffa-section .section-head {
+  margin-bottom: var(--space-4);
+}
+
+.caiffa-grid {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.caiffa-grid--2col {
+  grid-template-columns: 1fr;
+}
+
+.caiffa-grid--roasts,
+.caiffa-grid--4col {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .caiffa-grid--2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .caiffa-grid--roasts,
+  .caiffa-grid--4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .caiffa-grid--roasts {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .caiffa-grid--4col {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.caiffa-item {
+  padding: var(--space-3);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.caiffa-item:hover {
+  border-color: var(--color-primary-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.caiffa-item h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.caiffa-item .caiffa-tag {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-top: 2px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.caiffa-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text-soft, var(--color-text));
+}
+
+.caiffa-figure {
+  margin: var(--space-3) 0 0;
+}
+
+.caiffa-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+.caiffa-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.caiffa-bullets li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.caiffa-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+/* Closing showcase — three portrait photos side by side on desktop */
+.caiffa-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .caiffa-showcase {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.caiffa-showcase figure {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-soft-white, #f7f6f2);
+}
+
+.caiffa-showcase img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Olivo exhibition — mosaic (left) + video (right), single caption below */
 .olivo-expo-split {
   display: grid;
