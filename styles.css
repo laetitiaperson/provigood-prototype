@@ -5200,7 +5200,8 @@ body.home-clean .section {
 }
 
 .caiffa-figure {
-  margin: var(--space-3) 0 0;
+  margin: var(--space-3) auto 0;
+  max-width: 720px;
 }
 
 .caiffa-figure img {
@@ -5237,12 +5238,13 @@ body.home-clean .section {
   border-radius: 50%;
 }
 
-/* Closing showcase — three portrait photos side by side on desktop */
+/* Closing showcase — three same-size portrait thumbnails side by side */
 .caiffa-showcase {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-3);
-  margin-top: var(--space-4);
+  margin: var(--space-4) auto 0;
+  max-width: 640px;
 }
 
 @media (min-width: 640px) {
@@ -5253,15 +5255,17 @@ body.home-clean .section {
 
 .caiffa-showcase figure {
   margin: 0;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-soft-white, #f7f6f2);
+  aspect-ratio: 3 / 4;
 }
 
 .caiffa-showcase img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Olivo exhibition — mosaic (left) + video (right), single caption below */
