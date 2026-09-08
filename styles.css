@@ -3528,6 +3528,15 @@ small,
   display: block;
 }
 
+.cta-final-figure figcaption {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-white);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text-soft, var(--color-text));
+}
+
 .cta-final::before {
   content: '';
   position: absolute;
