@@ -5135,7 +5135,7 @@ body.home-clean .section {
 /* Partner page — inline "brand moment" figure with caption */
 .partner-moment {
   margin: 0 auto;
-  max-width: 720px;
+  max-width: 520px;
   text-align: center;
 }
 
@@ -5153,6 +5153,32 @@ body.home-clean .section {
   font-style: italic;
   line-height: 1.5;
   color: var(--color-text-soft, var(--color-text));
+}
+
+/* Partner page — two-photo moment (grid, single shared caption) */
+.partner-moment--duo {
+  max-width: 720px;
+}
+
+.partner-moment--duo .partner-moment-images {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+}
+
+@media (min-width: 640px) {
+  .partner-moment--duo .partner-moment-images {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.partner-moment--duo .partner-moment-images img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
 }
 
 /* Le Caïffa product page — 5-section content stack + closing showcase */
