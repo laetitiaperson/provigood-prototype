@@ -5132,6 +5132,29 @@ body.home-clean .section {
   border-radius: 50%;
 }
 
+/* Partner page — inline "brand moment" figure with caption */
+.partner-moment {
+  margin: 0 auto;
+  max-width: 720px;
+  text-align: center;
+}
+
+.partner-moment img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  margin: 0 auto;
+}
+
+.partner-moment figcaption {
+  margin-top: var(--space-2);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-text-soft, var(--color-text));
+}
+
 /* Le Caïffa product page — 5-section content stack + closing showcase */
 .caiffa-section .section-head {
   margin-bottom: var(--space-4);
