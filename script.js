@@ -256,6 +256,21 @@
     });
   }
 
+  // ---------- Phone fields: digits and the usual separators only ----------
+  // type="tel" validates nothing on its own. The pattern attribute catches a
+  // bad value on submit; this strips stray letters while the visitor types so
+  // they are not told off after the fact. "+" is kept for country codes.
+  document.querySelectorAll('input[type="tel"]').forEach((field) => {
+    field.addEventListener('input', () => {
+      const cleaned = field.value.replace(/[^\d\s+().-]/g, '');
+      if (cleaned !== field.value) {
+        const pos = field.selectionStart - (field.value.length - cleaned.length);
+        field.value = cleaned;
+        try { field.setSelectionRange(pos, pos); } catch (err) { /* not selectable */ }
+      }
+    });
+  });
+
   // ---------- Testimonial form (testimonial.html) ----------
   // Same prototype/no-backend approach as the contact form: open the visitor's
   // mail client with the testimonial pre-filled, then show the success state.
