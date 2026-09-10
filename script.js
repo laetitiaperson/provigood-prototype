@@ -205,7 +205,7 @@
       }
       const body = lines.join('\n') +
         '\n\n— Sent from the Provigood website contact form.';
-      return 'mailto:contact@provigood.com?subject=' +
+      return 'mailto:sales@provigood.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
 

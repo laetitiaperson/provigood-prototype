@@ -10,34 +10,15 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
 
   <!-- Multilingual alternates -->
-  <link rel="alternate" hreflang="en" href="https://provigood.com/en/" />
-  <link rel="alternate" hreflang="fr" href="https://provigood.com/fr/" />
-  <link rel="alternate" hreflang="vi" href="https://provigood.com/vi/" />
-  <link rel="alternate" hreflang="x-default" href="https://provigood.com/en/" />
+  <link rel="alternate" hreflang="en" href="https://laetitiaperson.github.io/provigood-prototype/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://laetitiaperson.github.io/provigood-prototype/en/" />
 
-  <!-- JS redirect (preferred) — runs immediately, picks the user's language -->
+  <!-- English is the default language: the French and Vietnamese versions are
+       still placeholders, so send everyone to /en/ and let them switch by hand. -->
   <script>
     (function () {
-      var supported = ['en', 'fr', 'vi'];
-      var fallback = 'en';
-
-      function pick() {
-        var langs = (navigator.languages && navigator.languages.length)
-          ? navigator.languages
-          : [navigator.language || navigator.userLanguage || ''];
-        for (var i = 0; i < langs.length; i++) {
-          var primary = (langs[i] || '').toLowerCase().split('-')[0];
-          if (supported.indexOf(primary) !== -1) return primary;
-        }
-        return fallback;
-      }
-
-      var lang = pick();
-      // Preserve any query string or hash on the way through.
-      // Use a relative path so it works both on the canonical domain and on
-      // GitHub Pages where the project lives under /provigood-prototype/.
       var suffix = window.location.search + window.location.hash;
-      window.location.replace(lang + '/' + suffix);
+      window.location.replace('en/' + suffix);
     })();
   </script>
 
@@ -46,13 +27,13 @@
 </head>
 <body>
   <p style="font-family: system-ui, sans-serif; max-width: 480px; margin: 80px auto; padding: 0 20px; text-align: center; color: #4a4a4a; line-height: 1.6;">
-    Redirecting to your preferred language…
+    Redirecting to Provigood…
     <br><br>
     <a href="en/" style="color: #E91E63; font-weight: 600; text-decoration: none;">Continue in English</a>
     &nbsp;·&nbsp;
     <a href="fr/" style="color: #E91E63; font-weight: 600; text-decoration: none;">Continuer en français</a>
     &nbsp;·&nbsp;
-    <a href="vi/" style="color: #E91E63; font-weight: 600; text-decoration: none;">Tiếp tục bằng tiếng Việt</a>
+    <a href="vn/" style="color: #E91E63; font-weight: 600; text-decoration: none;">Tiếp tục bằng tiếng Việt</a>
   </p>
 </body>
 </html>

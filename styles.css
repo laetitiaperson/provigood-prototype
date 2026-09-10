@@ -446,14 +446,14 @@ small,
 
 .logo-img {
   display: block;
-  width: 190px;
+  width: 205px;
   height: auto;
   max-width: none;
 }
 
 @media (min-width: 768px) {
   .logo-img {
-    width: 240px;
+    width: 260px;
   }
 }
 
@@ -499,6 +499,20 @@ small,
     display: flex;
     align-items: center;
     gap: var(--space-4);
+  }
+}
+
+/* 1024–1199px: the full nav appears while the viewport is still narrow.
+   Tighten the header gaps so the enlarged logo, the nav, the language
+   switcher and the Contact button all fit on one line. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .header-inner {
+    gap: var(--space-2);
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  .main-nav {
+    gap: var(--space-2);
   }
 }
 
@@ -748,6 +762,14 @@ small,
   padding-left: 36px;
   font-size: 15px;
   font-weight: 400;
+}
+
+/* First item of a drawer accordion: the section's own page. On desktop the
+   nav label links straight to it; on mobile the <summary> only toggles, so
+   this link is the way in. */
+.drawer-nav details > a.drawer-parent {
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 .drawer-foot {
@@ -5621,5 +5643,177 @@ body.home-clean .section {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   Coming soon / language placeholder pages
+   Used by vi/index.html and the French pages awaiting translation.
+   ========================================================= */
+.cs-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-white);
+}
+
+.cs-card {
+  max-width: 560px;
+  text-align: center;
+}
+
+.cs-logo {
+  display: inline-block;
+  margin-bottom: var(--space-5);
+}
+
+.cs-logo img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.cs-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 0 0 var(--space-3);
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-dark);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cs-card h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+}
+
+.cs-card h1 .accent {
+  color: var(--color-primary);
+}
+
+.cs-card p {
+  color: var(--color-text-soft);
+  margin: 0 0 var(--space-4);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.cs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.cs-foot {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: 14px;
+  color: var(--color-text-soft);
+}
+
+.cs-foot a {
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cs-foot a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.cs-langs {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  justify-content: center;
+}
+
+/* =========================================================
+   Olivo, cold chain slide (distribution-olivo.html)
+   ========================================================= */
+.olivo-coldchain {
+  max-width: 1000px;
+  margin: var(--space-5) auto 0;
+}
+
+.olivo-coldchain img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+/* The five step labels burnt into the slide drop to ~3px on a phone, so the
+   same information is repeated as real text below 768px. Hidden on desktop,
+   where the slide itself reads perfectly. */
+.olivo-coldchain-steps {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .olivo-coldchain-steps {
+    display: block;
+    margin-top: var(--space-3);
+    text-align: left;
+  }
+
+  .olivo-coldchain-lead {
+    margin: 0 0 var(--space-2);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .olivo-coldchain-steps ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: coldchain;
+  }
+
+  .olivo-coldchain-steps li {
+    position: relative;
+    counter-increment: coldchain;
+    padding: 0 0 12px 38px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--color-text);
+  }
+
+  .olivo-coldchain-steps li::before {
+    content: counter(coldchain);
+    position: absolute;
+    left: 0;
+    top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .olivo-coldchain-note {
+    margin: var(--space-1) 0 0;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-text-soft);
   }
 }
