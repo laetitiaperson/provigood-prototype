@@ -3644,10 +3644,14 @@ small,
   }
 }
 
-.site-footer h4 {
+/* Footer column headings are <h2>: they sit at the top level of the footer
+   landmark, and using <h4> created an h2 -> h4 jump on every page. The
+   rendering is unchanged. */
+.site-footer h2 {
   color: var(--color-white);
   font-size: 15px;
   font-weight: 600;
+  line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: var(--space-2);

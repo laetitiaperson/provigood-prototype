@@ -257,14 +257,50 @@
   }
 
   // ---------- Testimonial form (testimonial.html) ----------
+  // Same prototype/no-backend approach as the contact form: open the visitor's
+  // mail client with the testimonial pre-filled, then show the success state.
+  // When a real backend is wired up, replace buildTestimonialMailto() with a
+  // fetch() POST — and update the success copy accordingly.
   const testimonialForm = document.getElementById('testimonial-form');
   if (testimonialForm) {
+    const TESTIMONIAL_LABELS = {
+      first_name: 'First name',
+      last_name: 'Last name',
+      email: 'Email',
+      company: 'Company / organization',
+      role: 'Role / title',
+      country: 'Country',
+      testimonial: 'Testimonial',
+    };
+
+    function buildTestimonialMailto() {
+      const fd = new FormData(testimonialForm);
+      const lines = [];
+      for (const [key, label] of Object.entries(TESTIMONIAL_LABELS)) {
+        const val = fd.get(key);
+        if (val && String(val).trim()) {
+          lines.push(label + ': ' + String(val).trim());
+        }
+      }
+      lines.push('May we publish it: ' + (fd.get('publish_consent') ? 'yes' : 'no'));
+      const name = [fd.get('first_name'), fd.get('last_name')]
+        .filter(Boolean).join(' ').trim();
+      const subject = 'Provigood testimonial' + (name ? ' from ' + name : '');
+      const body = lines.join('\n') +
+        '\n\n— Sent from the Provigood website testimonial form.';
+      return 'mailto:sales@provigood.com?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+
     testimonialForm.addEventListener('submit', (e) => {
       e.preventDefault();
       if (!testimonialForm.checkValidity()) {
         testimonialForm.reportValidity();
         return;
       }
+      // 1) Hand the testimonial to the visitor's mail client
+      window.location.href = buildTestimonialMailto();
+      // 2) Then show the success state so there is visual feedback
       testimonialForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
         el.hidden = true;
       });
