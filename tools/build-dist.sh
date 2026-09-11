@@ -19,7 +19,7 @@ mkdir -p "$OUT"
 
 # the site itself
 cp -R en fr vn images "$OUT"/
-cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js "$OUT"/
+cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .htaccess llms.txt "$OUT"/
 
 # rewrite absolute URLs inside the copy, leaving the repo untouched
 ( cd "$OUT" && python3 ../tools/set-domain.py "$BASE" --write >/dev/null )
@@ -35,3 +35,5 @@ echo "Contrôles :"
 grep -rq 'laetitiaperson.github.io' "$OUT" && echo "   ✗ il reste des URLs GitHub" || echo "   ✓ aucune URL GitHub"
 [ -d "$OUT/drafts" ] && echo "   ✗ drafts/ présent" || echo "   ✓ drafts/ absent"
 [ -d "$OUT/tools" ]  && echo "   ✗ tools/ présent"  || echo "   ✓ tools/ absent"
+[ -f "$OUT/.htaccess" ] && echo "   ✓ .htaccess présent (cache navigateur)" || echo "   ✗ .htaccess absent"
+[ -f "$OUT/llms.txt" ] && echo "   ✓ llms.txt présent" || echo "   ✗ llms.txt absent"

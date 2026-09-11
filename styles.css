@@ -5933,3 +5933,37 @@ body.home-clean .section {
 .olivo-video-trio .yt-facade-note {
   font-size: 11px;
 }
+
+/* =========================================================
+   Form delivery states (see script.js, Web3Forms)
+   ========================================================= */
+.form-error {
+  margin: 0 0 var(--space-2);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #FDECEA;
+  color: #9B1C1C;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.form-error a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.form-error:focus {
+  outline: 2px solid #9B1C1C;
+  outline-offset: 2px;
+}
+
+/* Spam trap: never shown to people, only bots tick it */
+.form-honeypot {
+  display: none !important;
+}
+
+.btn[aria-busy="true"] {
+  opacity: 0.7;
+  cursor: progress;
+}

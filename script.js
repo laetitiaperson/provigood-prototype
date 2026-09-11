@@ -109,6 +109,71 @@
     });
   });
 
+  // ---------- Form delivery (Web3Forms) ----------
+  // Both forms send through Web3Forms, which e-mails the submission to the
+  // inbox the key was issued for (sales@provigood.com).
+  //
+  // Paste the access key from web3forms.com below. It is designed to sit in
+  // public page code: it can only deliver to the inbox it was created for.
+  // While it is empty, the forms keep the previous behaviour and hand the
+  // message to the visitor's mail app, so nothing breaks before it is set.
+  const WEB3FORMS_ACCESS_KEY = '';
+  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+  // Hides the form and shows the success block for the given mode:
+  // "sent" when the message really went out, "mailto" for the fallback.
+  function showFormSuccess(form, mode) {
+    form.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
+      el.hidden = true;
+    });
+    if (form.id === 'contact-form') {
+      const selector = document.querySelector('.type-selector');
+      if (selector) selector.hidden = true;
+    }
+    const success = form.querySelector('.form-success[data-mode="' + mode + '"]');
+    if (success) {
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  // Sends one submission, keeping the visitor informed: the button shows
+  // progress and cannot be pressed twice, and a failure leaves every field
+  // filled in with an error line and a direct address to write to instead.
+  async function deliverForm(form, payload) {
+    const button = form.querySelector('button[type="submit"]');
+    const error = form.querySelector('.form-error');
+    const idleLabel = button ? button.textContent : '';
+
+    if (error) error.hidden = true;
+    if (button) {
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.textContent = 'Sending…';
+    }
+
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.assign({ access_key: WEB3FORMS_ACCESS_KEY }, payload)),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) throw new Error('Delivery failed');
+      showFormSuccess(form, 'sent');
+    } catch (err) {
+      if (button) {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
+        button.textContent = idleLabel;
+      }
+      if (error) {
+        error.hidden = false;
+        error.focus();
+      }
+    }
+  }
+
   // ---------- Contact form: type variants + URL param + submission ----------
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
@@ -209,7 +274,7 @@
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
 
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       // Basic native validation already handled via `required` attrs
       if (!contactForm.checkValidity()) {
@@ -217,42 +282,32 @@
         return;
       }
 
-      // 1) Open the user's mail client with a pre-filled message
-      window.location.href = buildMailto();
-
-      // 2) Show the success state in the page so the user has visual feedback
-      contactForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
-        el.hidden = true;
-      });
-      const selector = document.querySelector('.type-selector');
-      if (selector) selector.hidden = true;
-
-      const success = contactForm.querySelector('.form-success');
-      if (success) {
-        success.hidden = false;
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  }
-
-  // ---------- Partner application form (partner.html) ----------
-  const partnerForm = document.getElementById('partner-application-form');
-  if (partnerForm) {
-    partnerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!partnerForm.checkValidity()) {
-        partnerForm.reportValidity();
+      if (!WEB3FORMS_ACCESS_KEY) {
+        window.location.href = buildMailto();
+        showFormSuccess(contactForm, 'mailto');
         return;
       }
-      // Hide all direct children except .form-success
-      partnerForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
-        el.hidden = true;
-      });
-      const success = partnerForm.querySelector('.form-success');
-      if (success) {
-        success.hidden = false;
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      const fd = new FormData(contactForm);
+      // Type chips sit outside the form, so read from the checked radio directly
+      const checkedRadio = document.querySelector('input[name="contact-type"]:checked');
+      const type = (checkedRadio && checkedRadio.value) || 'services';
+      const topic = TYPE_SUBJECT[type] || 'General';
+
+      // Human-readable keys: Web3Forms lists every field in the e-mail as-is
+      const payload = {
+        subject: 'Provigood inquiry: ' + topic,
+        from_name: 'Provigood website',
+        email: String(fd.get('email') || '').trim(),
+        'Inquiry type': topic,
+      };
+      for (const [key, label] of Object.entries(FIELD_LABELS)) {
+        const val = fd.get(key);
+        if (val && String(val).trim()) payload[label] = String(val).trim();
       }
+      if (fd.get('botcheck')) payload.botcheck = true;
+
+      await deliverForm(contactForm, payload);
     });
   }
 
@@ -272,10 +327,6 @@
   });
 
   // ---------- Testimonial form (testimonial.html) ----------
-  // Same prototype/no-backend approach as the contact form: open the visitor's
-  // mail client with the testimonial pre-filled, then show the success state.
-  // When a real backend is wired up, replace buildTestimonialMailto() with a
-  // fetch() POST — and update the success copy accordingly.
   const testimonialForm = document.getElementById('testimonial-form');
   if (testimonialForm) {
     const TESTIMONIAL_LABELS = {
@@ -307,23 +358,36 @@
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
 
-    testimonialForm.addEventListener('submit', (e) => {
+    testimonialForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!testimonialForm.checkValidity()) {
         testimonialForm.reportValidity();
         return;
       }
-      // 1) Hand the testimonial to the visitor's mail client
-      window.location.href = buildTestimonialMailto();
-      // 2) Then show the success state so there is visual feedback
-      testimonialForm.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
-        el.hidden = true;
-      });
-      const success = testimonialForm.querySelector('.form-success');
-      if (success) {
-        success.hidden = false;
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      if (!WEB3FORMS_ACCESS_KEY) {
+        window.location.href = buildTestimonialMailto();
+        showFormSuccess(testimonialForm, 'mailto');
+        return;
       }
+
+      const fd = new FormData(testimonialForm);
+      const name = [fd.get('first_name'), fd.get('last_name')]
+        .filter(Boolean).join(' ').trim();
+      const payload = {
+        subject: 'Provigood testimonial' + (name ? ' from ' + name : ''),
+        from_name: 'Provigood website',
+        email: String(fd.get('email') || '').trim(),
+      };
+      for (const [key, label] of Object.entries(TESTIMONIAL_LABELS)) {
+        const val = fd.get(key);
+        if (val && String(val).trim()) payload[label] = String(val).trim();
+      }
+      // The permission to publish decides whether the quote can be used at all
+      payload['May we publish it'] = fd.get('publish_consent') ? 'yes' : 'no';
+      if (fd.get('botcheck')) payload.botcheck = true;
+
+      await deliverForm(testimonialForm, payload);
     });
   }
 

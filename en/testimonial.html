@@ -38,7 +38,7 @@
   <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=3">
   <link rel="alternate" hreflang="en" href="https://laetitiaperson.github.io/provigood-prototype/en/testimonial.html" />
   <link rel="alternate" hreflang="x-default" href="https://laetitiaperson.github.io/provigood-prototype/en/testimonial.html" />
-  <link rel="stylesheet" href="../styles.css?v=20260911d">
+  <link rel="stylesheet" href="../styles.css?v=20260911e">
 </head>
 <body>
 
@@ -153,6 +153,8 @@
     <section class="contact-form-section" aria-labelledby="testimonial-form-title">
       <div class="container">
         <form class="contact-form" id="testimonial-form" novalidate>
+          <!-- Spam trap: hidden from people, ticked only by bots -->
+          <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
           <h2 id="testimonial-form-title" class="sr-only">Testimonial form</h2>
 
           <div class="form-grid">
@@ -208,10 +210,15 @@
           </div>
 
           <div class="form-actions">
+            <p class="form-error" role="alert" tabindex="-1" hidden>We could not send your message. Please try again in a moment, or write to us directly at <a href="mailto:sales@provigood.com">sales@provigood.com</a>.</p>
             <button type="submit" class="btn btn--primary">Submit my testimonial</button>
           </div>
 
-          <div class="form-success" hidden>
+          <div class="form-success" data-mode="sent" hidden role="status" aria-live="polite">
+            <h3>Thank you, your testimonial has been received.</h3>
+            <p>We will review it and get back to you within 48 hours. It will only be published if you gave us permission to do so.</p>
+          </div>
+          <div class="form-success" data-mode="mailto" hidden>
             <h3>Almost there!</h3>
             <p>Your e-mail app should have opened with your testimonial ready to go. <strong>Send that e-mail</strong> and it reaches us straight away, we will review it and reply within 48 hours.</p>
             <p>Nothing opened? Copy your testimonial and send it to <a href="mailto:sales@provigood.com">sales@provigood.com</a>.</p>
@@ -293,6 +300,6 @@
     </div>
   </footer>
 
-  <script src="../script.js?v=20260911d"></script>
+  <script src="../script.js?v=20260911e"></script>
 </body>
 </html>

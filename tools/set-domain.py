@@ -29,7 +29,7 @@ PREFIXED_PATH = "/provigood-prototype/"
 def targets():
     files = sorted(set(
         glob.glob("**/*.html", recursive=True)
-        + ["sitemap.xml", "robots.txt", "script.js"]
+        + ["sitemap.xml", "robots.txt", "script.js", "llms.txt"]
     ))
     return [f for f in files if os.path.exists(f)]
 
