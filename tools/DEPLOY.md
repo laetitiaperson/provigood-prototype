@@ -51,8 +51,18 @@ dans un sous-dossier `dist`.
 adresses servent le même contenu et Google y voit deux sites affichant la
 même chose — du contenu dupliqué, à l'échelle du site entier.
 
-**HTTP vers HTTPS.** Activer le certificat TLS (Let's Encrypt chez Gandi) et
-forcer la redirection.
+**HTTP vers HTTPS.** Activer le certificat TLS (Let's Encrypt, gratuit)
+dans l'espace Gandi, pour `provigood.com` et `www.provigood.com`. La
+redirection elle-même est déjà dans le `.htaccess` : elle ne s'applique qu'à
+`provigood.com`, donc une adresse de test Gandi sans certificat reste
+accessible. Si après activation le navigateur signale « trop de
+redirections », c'est que Gandi ne transmet pas l'en-tête
+`X-Forwarded-Proto` : retirer le deuxième bloc `RewriteCond` / `RewriteRule`
+du `.htaccess` et activer plutôt l'option de redirection HTTPS de Gandi.
+
+**`www` vers `provigood.com`** : aussi dans le `.htaccess`, à condition que
+`www.provigood.com` pointe vers l'hébergement. S'il passe par la redirection
+web de Gandi (cas actuel), la régler en 301 vers `https://provigood.com`.
 
 **La racine `provigood.com/` vers `/en/`** : déjà réglée en 301 dans le
 `.htaccess`, rien à faire.
@@ -83,6 +93,10 @@ Redirection de la racine, page 404 et en-têtes de sécurité, réglés dans le
 
 ```bash
 curl -sI $D/ | grep -iE '^(HTTP|location)'                        # 301 vers /en/
+curl -sI http://provigood.com/en/ | grep -iE '^(HTTP|location)'   # 301 vers https://provigood.com/en/
+curl -sI https://www.provigood.com/ | grep -iE '^(HTTP|location)' # 301 vers https://provigood.com/
+curl -s -o /dev/null -H 'Accept-Encoding: gzip' -w '%{size_download} octets\n' $D/styles.css  # compressé : bien moins que le fichier
+curl -sI -H 'Accept-Encoding: gzip' $D/en/ | grep -i content-encoding  # gzip (ou br)
 curl -s -o /dev/null -w "%{http_code}\n" $D/en/nexiste-pas.html   # 404
 curl -s $D/en/nexiste-pas.html | grep -c 'Page not found'         # 1 : la page 404 du site
 curl -sI $D/en/ | grep -ciE '^(strict-transport|x-content-type|x-frame|referrer-policy|permissions-policy|content-security)'  # 6

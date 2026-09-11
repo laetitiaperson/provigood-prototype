@@ -59,11 +59,39 @@
 # root-absolute so it renders at any depth, /en/missing.html included.
 ErrorDocument 404 /404.html
 
-# ---------- Domain root ----------
-# provigood.com/ goes straight to the English home page with a permanent
-# redirect. index.html keeps its script and meta refresh as a fallback.
-<IfModule mod_alias.c>
-  RedirectMatch 301 ^/$ /en/
+# ---------- Redirects ----------
+# 1. The domain root goes straight to https://provigood.com/en/ in one hop,
+#    whatever the scheme or www prefix. index.html keeps its script and meta
+#    refresh as a fallback.
+# 2. www.provigood.com -> https://provigood.com, same path.
+# 3. Plain HTTP on provigood.com -> HTTPS. Gandi terminates TLS in front of
+#    Apache and passes the original scheme in X-Forwarded-Proto, so the rule
+#    checks that header as well as HTTPS. Rules 1-3 only apply to
+#    provigood.com: a temporary Gandi test address without a certificate
+#    keeps working, with the root sent to /en/ on its own host (rule 4).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?provigood\.com$ [NC]
+  RewriteRule ^$ https://provigood.com/en/ [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^www\.provigood\.com$ [NC]
+  RewriteRule ^ https://provigood.com%{REQUEST_URI} [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^provigood\.com$ [NC]
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://provigood.com%{REQUEST_URI} [R=301,L]
+
+  RewriteRule ^$ /en/ [R=301,L]
+</IfModule>
+
+# ---------- Compression ----------
+# Text files only: images and WOFF2 fonts are already compressed.
+<IfModule mod_filter.c>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript application/json image/svg+xml
+  </IfModule>
 </IfModule>
 
 # ---------- Security headers ----------
