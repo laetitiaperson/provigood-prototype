@@ -5075,6 +5075,14 @@ body.home-clean .section {
   overflow: hidden;
 }
 
+/* Portrait visual (Olivo sustainability): never wider than its 516px
+   source, centred when the split stacks on tablets. */
+.esg-split-image--portrait {
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
 .esg-split-image figcaption {
   font-size: 13px;
   line-height: 1.5;
@@ -5119,6 +5127,37 @@ body.home-clean .section {
 }
 
 /* Olivo body copy (Distribution > Olivo) — lime bullets matching services page */
+/* Olivo applications: the page's bullet list flowed in two, then three
+   columns, with the illustration below at its natural width (632px) so it
+   is never upscaled. */
+.olivo-applications-list {
+  gap: var(--space-1) var(--space-4);
+}
+
+@media (min-width: 600px) {
+  .olivo-applications-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .olivo-applications-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.olivo-applications-figure {
+  max-width: 632px;
+  margin: var(--space-5) auto 0;
+}
+
+.olivo-applications-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
 .olivo-body {
   max-width: 880px;
   margin: var(--space-4) auto 0;

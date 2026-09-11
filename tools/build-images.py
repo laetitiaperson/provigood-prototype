@@ -17,7 +17,7 @@ from PIL import Image
 WIDTHS = (480, 960, 1600)
 QUALITY = {'avif': 62, 'webp': 82}
 # Images carrying small text: lossy artefacts show on letter edges first
-TEXT_IMAGES = {'key-achievements.jpg', 'olivo-cold-chain.jpg'}
+TEXT_IMAGES = {'key-achievements.jpg', 'olivo-cold-chain.jpg', 'olivo-sustainability.jpg'}
 # Small accreditation logos stay plain <img>: 7 KB saved each is not worth
 # another wrapper inside their link and flex container.
 EXCLUDE = {'bretagne-commerce-international.jpg', 'stratexio.jpg', 'thu-duc-business-association.jpg'}
