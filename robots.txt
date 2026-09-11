@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /en/consulting.html
-Disallow: /en/provigoodpeople.html
 Disallow: /drafts/
 
 # Friendly hints for LLM crawlers and AI training crawlers
