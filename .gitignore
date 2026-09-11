@@ -3,3 +3,6 @@
 node_modules/
 *.log
 dist/
+
+# Internal audit: security gaps and compliance findings, never in the public repo
+provigood-audit/
