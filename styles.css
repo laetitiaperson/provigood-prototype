@@ -5835,12 +5835,14 @@ body.home-clean .section {
 /* =========================================================
    Olivo, cold chain slide (distribution-olivo.html)
    ========================================================= */
-.olivo-coldchain {
+.olivo-coldchain,
+.caiffa-brand {
   max-width: 1000px;
   margin: var(--space-5) auto 0;
 }
 
-.olivo-coldchain img {
+.olivo-coldchain img,
+.caiffa-brand img {
   display: block;
   width: 100%;
   height: auto;
