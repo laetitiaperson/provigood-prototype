@@ -54,6 +54,9 @@ même chose — du contenu dupliqué, à l'échelle du site entier.
 **HTTP vers HTTPS.** Activer le certificat TLS (Let's Encrypt chez Gandi) et
 forcer la redirection.
 
+**La racine `provigood.com/` vers `/en/`** : déjà réglée en 301 dans le
+`.htaccess`, rien à faire.
+
 ## 4. Couper GitHub Pages
 
 Une fois `provigood.com` en ligne : `Settings → Pages → Unpublish site`.
@@ -74,6 +77,21 @@ curl -s $D/robots.txt | grep -i sitemap                  # pointe sur $D
 curl -s $D/en/ | grep -o 'rel="canonical" href="[^"]*"'  # pointe sur $D
 curl -s -o /dev/null -w "%{http_code}\n" https://www.provigood.com  # 301
 ```
+
+Redirection de la racine, page 404 et en-têtes de sécurité, réglés dans le
+`.htaccess` :
+
+```bash
+curl -sI $D/ | grep -iE '^(HTTP|location)'                        # 301 vers /en/
+curl -s -o /dev/null -w "%{http_code}\n" $D/en/nexiste-pas.html   # 404
+curl -s $D/en/nexiste-pas.html | grep -c 'Page not found'         # 1 : la page 404 du site
+curl -sI $D/en/ | grep -ciE '^(strict-transport|x-content-type|x-frame|referrer-policy|permissions-policy|content-security)'  # 6
+```
+
+Si une vidéo ou un formulaire cesse de fonctionner, la console du navigateur
+affiche un message « Content Security Policy » qui nomme l'adresse bloquée :
+c'est elle qu'il faut ajouter à la ligne `Content-Security-Policy` du
+`.htaccess`.
 
 Toutes les URLs du sitemap doivent répondre 200 :
 

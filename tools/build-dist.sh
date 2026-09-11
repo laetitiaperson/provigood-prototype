@@ -27,6 +27,11 @@ cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .
 # minify the stylesheet in the shipped copy only; the source stays readable
 python3 tools/minify-css.py "$OUT/styles.css"
 
+# 404.html is served for missing URLs at any depth (ErrorDocument in
+# .htaccess), so its stylesheet and favicon need root-absolute paths.
+sed -e 's#href="styles\.css#href="/styles.css#' -e 's#href="favicon\.svg#href="/favicon.svg#' \
+  "$OUT/404.html" > "$OUT/404.html.tmp" && mv "$OUT/404.html.tmp" "$OUT/404.html"
+
 # drafts/ is not shipped, so the robots rule guarding it is pointless
 sed -i '' '/Disallow: \/drafts\//d' "$OUT/robots.txt" 2>/dev/null || \
   sed -i '/Disallow: \/drafts\//d' "$OUT/robots.txt"
