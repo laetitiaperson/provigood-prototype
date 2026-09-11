@@ -5967,3 +5967,22 @@ body.home-clean .section {
   opacity: 0.7;
   cursor: progress;
 }
+
+/* =========================================================
+   Responsive image sources (see tools/build-images.py)
+   <picture class="img-sources"> only adds AVIF/WebP options around an
+   existing <img>. display: contents keeps the <img> as the box that flex
+   and grid layouts position, exactly as before the wrap.
+   ========================================================= */
+picture.img-sources {
+  display: contents;
+}
+
+/* <source> is not hidden by the browser default stylesheet. Once the
+   <picture> stops generating a box, its <source> children would become
+   flex or grid items of the parent: empty, but still taking a grid cell or
+   adding a gap. Hiding them only affects layout; the browser still reads
+   them to pick the image. */
+picture.img-sources > source {
+  display: none;
+}

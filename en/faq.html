@@ -80,7 +80,7 @@
   ]
 }
   </script>
-  <link rel="stylesheet" href="../styles.css?v=20260911e">
+  <link rel="stylesheet" href="../styles.css?v=20260911g">
 
   <!-- FAQPage schema (22 questions) -->
   <script type="application/ld+json">
@@ -485,7 +485,11 @@
             </div>
           </div>
           <figure class="cta-final-figure">
-            <img src="../images/hanoi-street.jpg" alt="A bustling Hanoi street with motorbikes, vendors and storefronts." loading="lazy" width="1400" height="933">
+            <picture class="img-sources">
+              <source type="image/avif" srcset="../images/hanoi-street-480.avif 480w, ../images/hanoi-street-960.avif 960w, ../images/hanoi-street-1400.avif 1400w" sizes="(max-width: 1023px) calc(100vw - 48px), 400px">
+              <source type="image/webp" srcset="../images/hanoi-street-480.webp 480w, ../images/hanoi-street-960.webp 960w, ../images/hanoi-street-1400.webp 1400w" sizes="(max-width: 1023px) calc(100vw - 48px), 400px">
+              <img src="../images/hanoi-street.jpg" alt="A bustling Hanoi street with motorbikes, vendors and storefronts." loading="lazy" width="1400" height="933">
+            </picture>
           </figure>
         </div>
       </div>

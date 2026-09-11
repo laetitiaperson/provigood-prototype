@@ -24,6 +24,9 @@ cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .
 # rewrite absolute URLs inside the copy, leaving the repo untouched
 ( cd "$OUT" && python3 ../tools/set-domain.py "$BASE" --write >/dev/null )
 
+# minify the stylesheet in the shipped copy only; the source stays readable
+python3 tools/minify-css.py "$OUT/styles.css"
+
 # drafts/ is not shipped, so the robots rule guarding it is pointless
 sed -i '' '/Disallow: \/drafts\//d' "$OUT/robots.txt" 2>/dev/null || \
   sed -i '/Disallow: \/drafts\//d' "$OUT/robots.txt"
