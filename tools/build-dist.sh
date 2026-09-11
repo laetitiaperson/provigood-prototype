@@ -27,6 +27,12 @@ cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .
 # minify the stylesheet in the shipped copy only; the source stays readable
 python3 tools/minify-css.py "$OUT/styles.css"
 
+# same for the script: comments and indentation go, line breaks stay
+python3 tools/minify-js.py "$OUT/script.js" >/dev/null
+
+# images used only by the parked translations in drafts/ are not shipped
+python3 tools/prune-images.py "$OUT"
+
 # 404.html is served for missing URLs at any depth (ErrorDocument in
 # .htaccess), so its stylesheet and favicon need root-absolute paths.
 sed -e 's#href="styles\.css#href="/styles.css#' -e 's#href="favicon\.svg#href="/favicon.svg#' \
