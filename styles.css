@@ -2717,6 +2717,12 @@ small,
   line-height: 1.4;
 }
 
+/* Links inside a network card's text are told apart by more than colour */
+.network-item p a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* About page — Accreditations list (3 rich blocks)
    ========================================================================== */
 .accreditations-list {
@@ -5849,65 +5855,85 @@ body.home-clean .section {
   border-radius: var(--radius-lg);
 }
 
-/* The five step labels burnt into the slide drop to ~3px on a phone, so the
-   same information is repeated as real text below 768px. Hidden on desktop,
-   where the slide itself reads perfectly. */
+/* The five step labels burnt into the slide are repeated as real text, for
+   phones (where the slide's labels drop to ~3px), screen readers and search
+   engines: a numbered list below 768px, a row of five steps above. */
 .olivo-coldchain-steps {
-  display: none;
+  margin-top: var(--space-3);
+}
+
+.olivo-coldchain-lead {
+  margin: 0 0 var(--space-2);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.olivo-coldchain-steps ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: coldchain;
+}
+
+.olivo-coldchain-steps li {
+  counter-increment: coldchain;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.olivo-coldchain-steps li::before {
+  content: counter(coldchain);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.olivo-coldchain-note {
+  margin: var(--space-1) 0 0;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--color-text-soft);
 }
 
 @media (max-width: 767px) {
   .olivo-coldchain-steps {
-    display: block;
-    margin-top: var(--space-3);
     text-align: left;
-  }
-
-  .olivo-coldchain-lead {
-    margin: 0 0 var(--space-2);
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .olivo-coldchain-steps ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    counter-reset: coldchain;
   }
 
   .olivo-coldchain-steps li {
     position: relative;
-    counter-increment: coldchain;
     padding: 0 0 12px 38px;
-    font-size: 15px;
-    line-height: 1.45;
-    color: var(--color-text);
   }
 
   .olivo-coldchain-steps li::before {
-    content: counter(coldchain);
     position: absolute;
     left: 0;
     top: -1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-size: 14px;
-    font-weight: 700;
+  }
+}
+
+@media (min-width: 768px) {
+  .olivo-coldchain-steps ol {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
   }
 
-  .olivo-coldchain-note {
-    margin: var(--space-1) 0 0;
-    font-size: 14px;
-    font-style: italic;
-    color: var(--color-text-soft);
+  .olivo-coldchain-steps li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
   }
 }
 
