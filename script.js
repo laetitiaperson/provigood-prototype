@@ -173,7 +173,7 @@
       olivo_volume: 'Estimated volume',
       olivo_usecase: 'Use case',
       olivo_region: 'Region of operation',
-      coffee_line: 'Capsule line',
+      coffee_line: 'Line of interest',
       coffee_usecase: 'Use case',
       coffee_volume: 'Monthly volume',
       coffee_region: 'Country / region',
