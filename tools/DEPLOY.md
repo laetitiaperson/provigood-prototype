@@ -82,15 +82,24 @@ curl -s $D/sitemap.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' \
   | while read u; do printf "%s %s\n" "$(curl -s -o /dev/null -w '%{http_code}' "$u")" "$u"; done
 ```
 
+**Formulaires.** Contact et Testimonial envoient les messages à
+sales@provigood.com par `send-form.php`, un petit script PHP exécuté par
+l'hébergement Gandi. Aucun service extérieur, aucun compte, aucune clé.
+
+```bash
+curl -s -X POST $D/send-form.php -H 'Content-Type: application/json' -d '{}'
+# attendu : {"success":false}  (requête vide refusée, rien n'est envoyé)
+# si la réponse commence par <?php, l'hébergement n'exécute pas le PHP
+```
+
+Puis envoyer un vrai message depuis `$D/en/contact.html` et vérifier qu'il
+arrive dans sales@provigood.com — regarder les spams la première fois.
+Tant que le site tourne ailleurs que sur Gandi (préversion GitHub, test en
+local), les formulaires ouvrent la messagerie du visiteur à la place.
+
 ## 6. Après la mise en ligne
 
 - Déclarer le site dans la Google Search Console et y soumettre le sitemap.
-- Le bandeau cookies enregistre le choix du visiteur mais **ne l'applique
-  pas** : les iframes YouTube se chargent même après un refus. Non-conforme
-  au RGPD dès le premier visiteur européen. À corriger avant d'ouvrir
-  vraiment.
-- Les images pèsent environ 12 Mo, sans conversion AVIF/WebP généralisée.
-  Principal levier de performance restant, surtout depuis le Vietnam.
 
 ---
 

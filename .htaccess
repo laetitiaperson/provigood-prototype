@@ -8,6 +8,7 @@
 #
 # styles.css and script.js carry a ?v= version in every page. A release
 # changes that version, so browsers fetch the new file at once: a one-year
+# (self-hosted fonts carry their version in the file name instead)
 # cache is safe for them, marked immutable to skip revalidation too.
 #
 # Most images have no version in their URL, so they get 30 days only. An
@@ -17,6 +18,10 @@
 # HTML, the sitemap and robots.txt are revalidated on every visit, so
 # page updates show immediately after an upload.
 # ---------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+</IfModule>
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 30 days"
@@ -29,6 +34,7 @@
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
 
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
@@ -39,7 +45,7 @@
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(css|js)$">
+  <FilesMatch "\.(css|js|woff2)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
   <FilesMatch "\.(html|xml|txt)$">

@@ -18,8 +18,8 @@ rm -rf "$OUT"
 mkdir -p "$OUT"
 
 # the site itself
-cp -R en fr vn images "$OUT"/
-cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .htaccess llms.txt "$OUT"/
+cp -R en fr vn images fonts "$OUT"/
+cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .htaccess llms.txt send-form.php "$OUT"/
 
 # rewrite absolute URLs inside the copy, leaving the repo untouched
 ( cd "$OUT" && python3 ../tools/set-domain.py "$BASE" --write >/dev/null )

@@ -109,16 +109,17 @@
     });
   });
 
-  // ---------- Form delivery (Web3Forms) ----------
-  // Both forms send through Web3Forms, which e-mails the submission to the
-  // inbox the key was issued for (sales@provigood.com).
+  // ---------- Form delivery ----------
+  // Both forms post to send-form.php, a small script at the site root that
+  // e-mails the submission to sales@provigood.com straight from the Gandi
+  // hosting: no third-party form service, no account, no key.
   //
-  // Paste the access key from web3forms.com below. It is designed to sit in
-  // public page code: it can only deliver to the inbox it was created for.
-  // While it is empty, the forms keep the previous behaviour and hand the
-  // message to the visitor's mail app, so nothing breaks before it is set.
-  const WEB3FORMS_ACCESS_KEY = '';
-  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+  // A static preview (GitHub Pages, a local test server) cannot run that
+  // script and answers 404, 405 or 501. The forms then hand the message to
+  // the visitor's mail app instead, so nothing breaks before the site is on
+  // Gandi.
+  const FORM_ENDPOINT = '../send-form.php';
+  const NO_FORM_SCRIPT = [404, 405, 501];
 
   // Hides the form and shows the success block for the given mode:
   // "sent" when the message really went out, "mailto" for the fallback.
@@ -140,7 +141,8 @@
   // Sends one submission, keeping the visitor informed: the button shows
   // progress and cannot be pressed twice, and a failure leaves every field
   // filled in with an error line and a direct address to write to instead.
-  async function deliverForm(form, payload) {
+  // mailtoHref is used only where send-form.php cannot run.
+  async function deliverForm(form, payload, mailtoHref) {
     const button = form.querySelector('button[type="submit"]');
     const error = form.querySelector('.form-error');
     const idleLabel = button ? button.textContent : '';
@@ -153,11 +155,16 @@
     }
 
     try {
-      const response = await fetch(WEB3FORMS_ENDPOINT, {
+      const response = await fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.assign({ access_key: WEB3FORMS_ACCESS_KEY }, payload)),
+        body: JSON.stringify(payload),
       });
+      if (NO_FORM_SCRIPT.includes(response.status)) {
+        window.location.href = mailtoHref;
+        showFormSuccess(form, 'mailto');
+        return;
+      }
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.success) throw new Error('Delivery failed');
       showFormSuccess(form, 'sent');
@@ -282,32 +289,26 @@
         return;
       }
 
-      if (!WEB3FORMS_ACCESS_KEY) {
-        window.location.href = buildMailto();
-        showFormSuccess(contactForm, 'mailto');
-        return;
-      }
-
       const fd = new FormData(contactForm);
       // Type chips sit outside the form, so read from the checked radio directly
       const checkedRadio = document.querySelector('input[name="contact-type"]:checked');
       const type = (checkedRadio && checkedRadio.value) || 'services';
       const topic = TYPE_SUBJECT[type] || 'General';
 
-      // Human-readable keys: Web3Forms lists every field in the e-mail as-is
+      // Human-readable keys: send-form.php lists every field in the e-mail as-is
       const payload = {
+        form: 'contact',
         subject: 'Provigood inquiry: ' + topic,
-        from_name: 'Provigood website',
         email: String(fd.get('email') || '').trim(),
-        'Inquiry type': topic,
+        fields: { 'Inquiry type': topic },
       };
       for (const [key, label] of Object.entries(FIELD_LABELS)) {
         const val = fd.get(key);
-        if (val && String(val).trim()) payload[label] = String(val).trim();
+        if (val && String(val).trim()) payload.fields[label] = String(val).trim();
       }
       if (fd.get('botcheck')) payload.botcheck = true;
 
-      await deliverForm(contactForm, payload);
+      await deliverForm(contactForm, payload, buildMailto());
     });
   }
 
@@ -365,29 +366,24 @@
         return;
       }
 
-      if (!WEB3FORMS_ACCESS_KEY) {
-        window.location.href = buildTestimonialMailto();
-        showFormSuccess(testimonialForm, 'mailto');
-        return;
-      }
-
       const fd = new FormData(testimonialForm);
       const name = [fd.get('first_name'), fd.get('last_name')]
         .filter(Boolean).join(' ').trim();
       const payload = {
+        form: 'testimonial',
         subject: 'Provigood testimonial' + (name ? ' from ' + name : ''),
-        from_name: 'Provigood website',
         email: String(fd.get('email') || '').trim(),
+        fields: {},
       };
       for (const [key, label] of Object.entries(TESTIMONIAL_LABELS)) {
         const val = fd.get(key);
-        if (val && String(val).trim()) payload[label] = String(val).trim();
+        if (val && String(val).trim()) payload.fields[label] = String(val).trim();
       }
       // The permission to publish decides whether the quote can be used at all
-      payload['May we publish it'] = fd.get('publish_consent') ? 'yes' : 'no';
+      payload.fields['May we publish it'] = fd.get('publish_consent') ? 'yes' : 'no';
       if (fd.get('botcheck')) payload.botcheck = true;
 
-      await deliverForm(testimonialForm, payload);
+      await deliverForm(testimonialForm, payload, buildTestimonialMailto());
     });
   }
 
