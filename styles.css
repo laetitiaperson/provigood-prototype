@@ -5821,3 +5821,115 @@ body.home-clean .section {
     color: var(--color-text-soft);
   }
 }
+
+/* =========================================================
+   YouTube click-to-load facade (see script.js)
+   Stands in for the player until the visitor clicks. It fills the same
+   16:9 slot the iframe used to fill, so nothing shifts on load or on click.
+   ========================================================= */
+.yt-facade {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: var(--space-3);
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(120% 90% at 50% 36%, rgba(233, 30, 99, 0.24), rgba(233, 30, 99, 0) 62%),
+    linear-gradient(160deg, #283243 0%, var(--color-dark) 55%, #161D27 100%);
+  color: var(--color-white);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.yt-facade-play {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.yt-facade-play svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 3px;
+  fill: var(--color-white);
+}
+
+.yt-facade-title {
+  max-width: 32ch;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-white);
+}
+
+.yt-facade-note {
+  max-width: 36ch;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.yt-facade:hover .yt-facade-play,
+.yt-facade:focus-visible .yt-facade-play {
+  transform: scale(1.06);
+  background: var(--color-primary-dark);
+}
+
+.yt-facade:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+/* Self-contained visually-hidden text for the accessible name */
+.yt-facade .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* .video-embed puts the 16:9 ratio on the iframe itself, not the figure */
+.video-embed .yt-facade {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Olivo trio: small absolutely-positioned thumbnails, tighter content */
+.olivo-video-trio .video-thumb .yt-facade {
+  position: absolute;
+  inset: 0;
+  gap: var(--space-1);
+  padding: 14px;
+}
+
+.olivo-video-trio .yt-facade-play {
+  width: 56px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.olivo-video-trio .yt-facade-title {
+  font-size: 14px;
+}
+
+.olivo-video-trio .yt-facade-note {
+  font-size: 11px;
+}

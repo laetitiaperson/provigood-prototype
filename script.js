@@ -327,69 +327,114 @@
     });
   }
 
-  // ---------- YouTube IFrame API: enforce custom start/end times ----------
-  // The native ?start= and ?end= URL parameters are unreliable; we use the
-  // IFrame API to seek on ready and pause when the end time is reached.
-  const ytFrames = document.querySelectorAll('iframe[data-end-time]');
-  if (ytFrames.length > 0) {
-    // Make sure each iframe has an id (the API attaches by id)
-    ytFrames.forEach((frame, i) => {
-      if (!frame.id) frame.id = 'yt-frame-' + i;
-    });
+  // ---------- YouTube: click-to-load facades ----------
+  // Videos render as a lightweight button until clicked. Nothing is requested
+  // from YouTube before that click: no iframe, no thumbnail, no API script.
+  //
+  // Two reasons. Performance: four players loaded on page load cost ~1.5 MB
+  // of JavaScript and 9 s of LCP on the Olivo page on mobile. Consent: an
+  // iframe that is already loaded has already set its cookies, so the cookie
+  // banner could never honour "Reject all". Now no third-party request happens
+  // until the visitor explicitly asks to watch, and embeds use
+  // youtube-nocookie.com (privacy-enhanced mode).
+  const YT_HOST = 'https://www.youtube-nocookie.com';
 
-    const initPlayers = () => {
-      ytFrames.forEach((frame) => {
-        const endTime = parseFloat(frame.dataset.endTime);
-        if (!Number.isFinite(endTime)) return;
-
-        let watchInterval = null;
-
-        const watchEnd = (player) => {
-          if (watchInterval) clearInterval(watchInterval);
-          watchInterval = setInterval(() => {
-            try {
-              if (player.getCurrentTime() >= endTime) {
-                player.pauseVideo();
-                clearInterval(watchInterval);
-                watchInterval = null;
-              }
-            } catch (err) {
-              clearInterval(watchInterval);
-              watchInterval = null;
-            }
-          }, 200);
-        };
-
-        // Note: start time is handled by the ?start= URL parameter alone.
-        // Calling seekTo() on onReady was causing autoplay on some browsers.
-        new YT.Player(frame.id, {
-          events: {
-            onStateChange: (event) => {
-              if (event.data === YT.PlayerState.PLAYING) {
-                watchEnd(event.target);
-              } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                if (watchInterval) {
-                  clearInterval(watchInterval);
-                  watchInterval = null;
-                }
-              }
-            },
-          },
-        });
-      });
-    };
-
+  function loadYouTubeApi(callback) {
     if (window.YT && window.YT.Player) {
-      initPlayers();
-    } else {
-      window.onYouTubeIframeAPIReady = initPlayers;
-      if (!document.querySelector('script[src*="iframe_api"]')) {
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
-      }
+      callback();
+      return;
+    }
+    // Chain rather than overwrite, in case several players wait on the API
+    const previous = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previous === 'function') previous();
+      callback();
+    };
+    if (!document.querySelector('script[src*="iframe_api"]')) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
     }
   }
+
+  // The native ?end= parameter is unreliable, so the end time is enforced
+  // through the IFrame API by pausing once it is reached.
+  function enforceEndTime(iframe, endTime) {
+    loadYouTubeApi(() => {
+      let watchInterval = null;
+      const stopWatching = () => {
+        if (watchInterval) {
+          clearInterval(watchInterval);
+          watchInterval = null;
+        }
+      };
+      const startWatching = (player) => {
+        stopWatching();
+        watchInterval = setInterval(() => {
+          try {
+            if (player.getCurrentTime() >= endTime) {
+              player.pauseVideo();
+              stopWatching();
+            }
+          } catch (err) {
+            stopWatching();
+          }
+        }, 200);
+      };
+
+      new YT.Player(iframe.id, {
+        host: YT_HOST,
+        events: {
+          // The facade autoplays on click, so playback can begin before the
+          // API attaches and the first PLAYING event would be missed.
+          onReady: (event) => {
+            if (event.target.getPlayerState() === YT.PlayerState.PLAYING) {
+              startWatching(event.target);
+            }
+          },
+          onStateChange: (event) => {
+            if (event.data === YT.PlayerState.PLAYING) {
+              startWatching(event.target);
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+              stopWatching();
+            }
+          },
+        },
+      });
+    });
+  }
+
+  document.querySelectorAll('.yt-facade').forEach((button) => {
+    button.addEventListener('click', () => {
+      const params = new URLSearchParams(button.dataset.ytParams || '');
+      params.set('autoplay', '1');
+      params.set('playsinline', '1');
+      params.set('rel', '0');
+
+      const endTime = parseFloat(button.dataset.endTime);
+      const needsApi = Number.isFinite(endTime);
+      if (needsApi) {
+        params.set('enablejsapi', '1');
+        params.set('origin', window.location.origin);
+      }
+
+      const iframe = document.createElement('iframe');
+      iframe.src = YT_HOST + '/embed/' + encodeURIComponent(button.dataset.ytId) + '?' + params.toString();
+      iframe.title = button.dataset.ytTitle || 'YouTube video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      if (needsApi) {
+        iframe.id = button.dataset.ytFrameId || 'yt-frame-' + button.dataset.ytId;
+      }
+
+      button.replaceWith(iframe);
+      // Keyboard users land on the player they just opened
+      iframe.focus();
+
+      if (needsApi) enforceEndTime(iframe, endTime);
+    });
+  });
 
   // ---------- Cookie consent banner + preferences modal ----------
   // Lightweight prototype implementation. On WordPress we'll swap this for a
