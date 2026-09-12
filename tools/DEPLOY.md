@@ -60,9 +60,15 @@ redirections », c'est que Gandi ne transmet pas l'en-tête
 `X-Forwarded-Proto` : retirer le deuxième bloc `RewriteCond` / `RewriteRule`
 du `.htaccess` et activer plutôt l'option de redirection HTTPS de Gandi.
 
-**`www` vers `provigood.com`** : aussi dans le `.htaccess`, à condition que
-`www.provigood.com` pointe vers l'hébergement. S'il passe par la redirection
-web de Gandi (cas actuel), la régler en 301 vers `https://provigood.com`.
+**`www` vers `provigood.com`** : chez Gandi, `www` doit être un second site
+de l'hébergement, avec sa propre racine web. Trois étapes :
+
+1. DNS : `www` en CNAME vers `provigood.com.`
+2. Hébergement → Sites → Créer un site : `www.provigood.com`, puis générer
+   son certificat TLS gratuit.
+3. Téléverser `tools/www-vhost/.htaccess` dans
+   `vhosts/www.provigood.com/htdocs/.htaccess` : il redirige tout en 301
+   vers `https://provigood.com`, en conservant le chemin.
 
 **La racine `provigood.com/` vers `/en/`** : déjà réglée en 301 dans le
 `.htaccess`, rien à faire.
@@ -128,6 +134,23 @@ Puis envoyer un vrai message depuis `$D/en/contact.html` et vérifier qu'il
 arrive dans sales@provigood.com — regarder les spams la première fois.
 Tant que le site tourne ailleurs que sur Gandi (préversion GitHub, test en
 local), les formulaires ouvrent la messagerie du visiteur à la place.
+
+## 6. Prévenir les moteurs à chaque mise à jour (IndexNow)
+
+La clé IndexNow est le fichier `a41c0ceddc140a51bb7e6251e1623b3a.txt` à la racine du dépôt ; il est
+copié dans `dist/` et doit rester accessible à
+`https://provigood.com/a41c0ceddc140a51bb7e6251e1623b3a.txt`. Les moteurs le lisent pour vérifier que
+la demande vient bien du site.
+
+Après chaque téléversement :
+
+```bash
+python3 tools/indexnow.py                       # toutes les URLs du sitemap
+python3 tools/indexnow.py https://provigood.com/en/faq.html   # ou seulement celles qui changent
+```
+
+Réponse attendue : `200 OK` ou `202 Accepted`. Un `403` signifie que le
+fichier clé n'est pas en ligne.
 
 ## 6. Après la mise en ligne
 

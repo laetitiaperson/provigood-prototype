@@ -21,6 +21,9 @@ mkdir -p "$OUT"
 cp -R en fr vn images fonts "$OUT"/
 cp index.html 404.html favicon.svg robots.txt sitemap.xml styles.css script.js .htaccess llms.txt send-form.php "$OUT"/
 
+# IndexNow key file: the engines fetch it to check the ping is ours
+cp ./*[0-9a-f].txt "$OUT"/ 2>/dev/null || true
+
 # rewrite absolute URLs inside the copy, leaving the repo untouched
 ( cd "$OUT" && python3 ../tools/set-domain.py "$BASE" --write >/dev/null )
 

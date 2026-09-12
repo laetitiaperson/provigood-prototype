@@ -1,0 +1,9 @@
+# www.provigood.com is a second vhost on the Gandi hosting, with its own
+# (otherwise empty) document root. Everything it receives is sent to the
+# canonical domain, permanently, keeping the path.
+#
+# Upload this single file to vhosts/www.provigood.com/htdocs/.htaccess
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^ https://provigood.com%{REQUEST_URI} [R=301,L]
+</IfModule>
