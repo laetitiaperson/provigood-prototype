@@ -3643,6 +3643,25 @@ small,
   display: block;
 }
 
+/* Portrait / infographic variant — keep native aspect, no square crop */
+.cta-final-figure--portrait {
+  max-width: 320px;
+  box-shadow: none;
+  border-radius: var(--radius-lg);
+}
+
+@media (min-width: 1024px) {
+  .cta-final-figure--portrait {
+    max-width: 320px;
+  }
+}
+
+.cta-final-figure--portrait img {
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
 .cta-final-figure figcaption {
   padding: var(--space-2) var(--space-3);
   background: var(--color-white);
