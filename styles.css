@@ -4761,17 +4761,66 @@ body.home-clean .section {
    a centered section-head. Designed for a 3:2 graphic with on-image text:
    big enough that labels stay readable, capped so it never feels huge on
    ultra-wide viewports. */
-.key-achievements-figure {
-  margin: var(--space-4) auto 0;
-  max-width: 900px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.key-achievements-figure img {
-  display: block;
+/* Home page, "Why choose Provigood?": the key achievements timeline, in
+   HTML so the nine figures are readable by search engines, AI engines and
+   screen readers (it replaced an image). Everything is scoped under
+   .key-achievements so the site's global heading and paragraph styles do
+   not leak in, and the block keeps its own look. */
+.key-achievements {
+  --ka-pink: #E91E63;
+  --ka-green: #C5DA3B;
+  --ka-text: #252525;
+  --ka-muted: #444;
   width: 100%;
-  height: auto;
+  max-width: 930px;
+  margin: 0 auto;
+  padding: 48px 30px 35px;
+  color: var(--ka-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.key-achievements * { box-sizing: border-box; }
+.key-achievements h3,
+.key-achievements h4,
+.key-achievements p { font-family: inherit; letter-spacing: normal; }
+.key-achievements .header { max-width: 520px; margin-bottom: 48px; }
+.key-achievements .title { margin: 0; font-size: 49px; line-height: .93; font-weight: 800; letter-spacing: -1.6px; text-transform: uppercase; }
+.key-achievements .title .pink { color: var(--ka-pink); }
+.key-achievements .title .green { color: var(--ka-green); }
+.key-achievements .since { display: flex; align-items: center; gap: 13px; margin: 20px 0 10px; color: var(--ka-pink); font-size: 18px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
+.key-achievements .since::before,
+.key-achievements .since::after { content: ""; display: block; width: 31px; height: 2px; background: var(--ka-pink); }
+.key-achievements .intro { max-width: 360px; margin: 0; font-size: 14px; line-height: 1.42; color: #222; }
+.key-achievements .intro strong { color: var(--ka-pink); }
+.key-achievements .timeline { position: relative; }
+.key-achievements .timeline-row { position: relative; display: grid; padding-top: 24px; }
+.key-achievements .timeline-row::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--ka-pink); }
+.key-achievements .timeline-row.top { grid-template-columns: repeat(5, 1fr); margin-bottom: 40px; }
+.key-achievements .timeline-row.bottom { grid-template-columns: repeat(4, 1fr); }
+.key-achievements .achievement { position: relative; min-width: 0; padding: 0 14px 0 69px; min-height: 112px; }
+.key-achievements .achievement::before { content: ""; position: absolute; top: -24px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--ka-pink); transform: translateX(-50%); }
+.key-achievements .icon { position: absolute; left: 6px; top: 0; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #fff; border: 2px solid currentColor; box-shadow: 0 0 0 4px #fff; }
+.key-achievements .icon.pink { color: var(--ka-pink); }
+.key-achievements .icon.green { color: var(--ka-green); }
+.key-achievements .icon::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: currentColor; opacity: .10; }
+.key-achievements .icon svg { position: relative; z-index: 1; width: 29px; height: 29px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.key-achievements .number { display: block; font-size: 32px; line-height: 1; font-weight: 800; letter-spacing: -1px; margin: 0 0 5px; white-space: nowrap; }
+.key-achievements .number.pink { color: var(--ka-pink); }
+.key-achievements .number.green { color: var(--ka-green); }
+.key-achievements .achievement h4 { margin: 0 0 5px; font-size: 13px; line-height: 1.12; font-weight: 700; color: #292929; }
+.key-achievements .achievement p { margin: 0; font-size: 10px; line-height: 1.34; color: var(--ka-muted); }
+@media (max-width: 850px) {
+  .key-achievements .timeline-row.top { grid-template-columns: repeat(3, 1fr); row-gap: 40px; }
+  .key-achievements .timeline-row.bottom { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+}
+@media (max-width: 600px) {
+  .key-achievements { padding: 35px 20px; }
+  .key-achievements .title { font-size: 38px; }
+  .key-achievements .timeline-row.top,
+  .key-achievements .timeline-row.bottom { grid-template-columns: 1fr; }
+  .key-achievements .timeline-row.top { margin-bottom: 40px; }
+  .key-achievements .achievement { padding-left: 70px; }
+  .key-achievements .timeline-row::before { left: 5px; }
+  .key-achievements .achievement::before { left: 5px; }
 }
 
 /* Text-wide variant: text column gets ~60% of the width on desktop, so
