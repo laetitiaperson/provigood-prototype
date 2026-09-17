@@ -4782,15 +4782,14 @@ body.home-clean .section {
 .key-achievements h3,
 .key-achievements h4,
 .key-achievements p { font-family: inherit; letter-spacing: normal; }
-.key-achievements .header { max-width: 520px; margin: 0 auto 48px; text-align: center; }
-.key-achievements .title { margin: 0; font-size: 49px; line-height: .93; font-weight: 800; letter-spacing: -1.6px; text-transform: uppercase; }
-.key-achievements .title .pink { color: var(--ka-pink); }
-.key-achievements .title .green { color: var(--ka-green); }
-.key-achievements .since { display: flex; align-items: center; justify-content: center; gap: 13px; margin: 20px 0 10px; color: var(--ka-pink); font-size: 18px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
-.key-achievements .since::before,
-.key-achievements .since::after { content: ""; display: block; width: 31px; height: 2px; background: var(--ka-pink); }
-.key-achievements .intro { max-width: 360px; margin: 0 auto; font-size: 14px; line-height: 1.42; color: #222; }
-.key-achievements .intro strong { color: var(--ka-pink); }
+/* Heading and intro match the section's own h2 and .lead above */
+.key-achievements .header { max-width: 760px; margin: 0 auto var(--space-5); text-align: center; }
+.key-achievements .title { margin: 0 0 var(--space-2); font-size: 24px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; color: var(--color-text); }
+.key-achievements .intro { margin: 0; font-size: 18px; color: var(--color-text-soft); }
+@media (min-width: 768px) {
+  .key-achievements .title { font-size: 32px; }
+  .key-achievements .intro { font-size: 20px; }
+}
 .key-achievements .timeline { position: relative; }
 .key-achievements .timeline-row { position: relative; display: grid; padding-top: 24px; }
 .key-achievements .timeline-row::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--ka-pink); }
@@ -4814,7 +4813,6 @@ body.home-clean .section {
 }
 @media (max-width: 600px) {
   .key-achievements { padding: 35px 20px; }
-  .key-achievements .title { font-size: 38px; }
   .key-achievements .timeline-row.top,
   .key-achievements .timeline-row.bottom { grid-template-columns: 1fr; }
   .key-achievements .timeline-row.top { margin-bottom: 40px; }
