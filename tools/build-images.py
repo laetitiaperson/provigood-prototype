@@ -20,7 +20,7 @@ QUALITY = {'avif': 62, 'webp': 82}
 TEXT_IMAGES = {'key-achievements.jpg', 'olivo-cold-chain.jpg', 'olivo-sustainability.jpg'}
 # Small accreditation logos stay plain <img>: 7 KB saved each is not worth
 # another wrapper inside their link and flex container.
-EXCLUDE = {'bretagne-commerce-international.jpg', 'stratexio.jpg', 'thu-duc-business-association.jpg'}
+EXCLUDE = {'bretagne-commerce-international.jpg', 'heba.jpg'}
 QUALITY_TEXT = {'avif': 78, 'webp': 90}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
