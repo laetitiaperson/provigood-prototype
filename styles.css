@@ -3404,17 +3404,17 @@ small,
 .testimonials-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 @media (min-width: 768px) {
   .testimonials-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .testimonial {
-  padding: var(--space-4);
+  padding: var(--space-3);
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
