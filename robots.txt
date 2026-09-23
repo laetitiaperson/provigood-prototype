@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /drafts/
 
 # Friendly hints for LLM crawlers and AI training crawlers
 User-agent: GPTBot
@@ -21,4 +20,4 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-Sitemap: https://laetitiaperson.github.io/provigood-prototype/sitemap.xml
+Sitemap: https://provigood.com/sitemap.xml

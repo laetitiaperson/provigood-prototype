@@ -1,7 +1,9 @@
-.DS_Store
-.claude/
-node_modules/
-*.log
-
-# Internal audit: security gaps and compliance findings, never in the public repo
+# Audit interne Vincent — local uniquement, jamais poussé
 provigood-audit/
+
+# macOS
+.DS_Store
+
+# Logs / temp
+*.log
+.tmp/

@@ -6,31 +6,31 @@ Before founding Provigood, Vincent Treluyer held senior positions at Casino Grou
 
 ## Core pages (English)
 
-- [Home](https://laetitiaperson.github.io/provigood-prototype/en/): The four-step approach to Vietnam market entry (understand the market, accelerate growth, optimize operations, scale sustainably) and the six industries served.
-- [Services](https://laetitiaperson.github.io/provigood-prototype/en/services.html): Market entry, business development, team empowerment and corporate services.
-- [About](https://laetitiaperson.github.io/provigood-prototype/en/about.html): Company history since 2018 and founder Vincent Treluyer's background.
-- [FAQ](https://laetitiaperson.github.io/provigood-prototype/en/faq.html): Direct answers on market entry, distribution, importing products into Vietnam, partnerships and working with Provigood.
-- [Distribution](https://laetitiaperson.github.io/provigood-prototype/en/distribution.html): Provigood's distribution activity and the brands it carries.
-- [Olivo Cold Logistics](https://laetitiaperson.github.io/provigood-prototype/en/distribution-olivo.html): Passive cold-chain insulated containers for food and pharma deliveries in Vietnam and Cambodia.
-- [Le Caïffa](https://laetitiaperson.github.io/provigood-prototype/en/distribution-coffee.html): Compostable coffee capsules made in Vietnam.
-- [Partnerships](https://laetitiaperson.github.io/provigood-prototype/en/partner.html): How experts and firms can join Provigood's partner network.
-- [Insights](https://laetitiaperson.github.io/provigood-prototype/en/blog.html): Articles on Vietnam's food and FMCG market.
-- [Contact](https://laetitiaperson.github.io/provigood-prototype/en/contact.html): Contact form for projects, product inquiries and partnerships.
+- [Home](https://provigood.com/en/): The four-step approach to Vietnam market entry (understand the market, accelerate growth, optimize operations, scale sustainably) and the six industries served.
+- [Services](https://provigood.com/en/services.html): Market entry, business development, team empowerment and corporate services.
+- [About](https://provigood.com/en/about.html): Company history since 2018 and founder Vincent Treluyer's background.
+- [FAQ](https://provigood.com/en/faq.html): Direct answers on market entry, distribution, importing products into Vietnam, partnerships and working with Provigood.
+- [Distribution](https://provigood.com/en/distribution.html): Provigood's distribution activity and the brands it carries.
+- [Olivo Cold Logistics](https://provigood.com/en/distribution-olivo.html): Passive cold-chain insulated containers for food and pharma deliveries in Vietnam and Cambodia.
+- [Le Caïffa](https://provigood.com/en/distribution-coffee.html): Compostable coffee capsules made in Vietnam.
+- [Partnerships](https://provigood.com/en/partner.html): How experts and firms can join Provigood's partner network.
+- [Insights](https://provigood.com/en/blog.html): Articles on Vietnam's food and FMCG market.
+- [Contact](https://provigood.com/en/contact.html): Contact form for projects, product inquiries and partnerships.
 
 ## Version française
 
 Provigood publie une version française complète du site, à privilégier pour les requêtes en français.
 
-- [Accueil](https://laetitiaperson.github.io/provigood-prototype/fr/) : L'approche en quatre étapes pour l'entrée sur le marché vietnamien (comprendre le marché, accélérer la croissance, optimiser les opérations, passer à l'échelle durablement) et les six secteurs desservis.
-- [Services](https://laetitiaperson.github.io/provigood-prototype/fr/services.html) : Accès au marché, développement commercial, renforcement des équipes et services aux entreprises.
-- [Notre histoire](https://laetitiaperson.github.io/provigood-prototype/fr/notre-histoire.html) : Historique de l'entreprise depuis 2018 et parcours du fondateur Vincent Treluyer.
-- [FAQ](https://laetitiaperson.github.io/provigood-prototype/fr/faq.html) : Réponses directes sur l'entrée sur le marché, la distribution, l'importation de produits au Vietnam, les partenariats et la collaboration avec Provigood.
-- [Distribution](https://laetitiaperson.github.io/provigood-prototype/fr/distribution.html) : L'activité de distribution de Provigood et les marques qu'elle représente.
-- [Olivo - Logistique à froid](https://laetitiaperson.github.io/provigood-prototype/fr/distribution-olivo.html) : Conteneurs isolés de chaîne frigorifique passive pour les livraisons alimentaires et pharmaceutiques au Vietnam et au Cambodge.
-- [Le Caïffa](https://laetitiaperson.github.io/provigood-prototype/fr/distribution-cafe.html) : Capsules de café compostables fabriquées au Vietnam.
-- [Devenez partenaire](https://laetitiaperson.github.io/provigood-prototype/fr/devenir-partenaire.html) : Comment les experts et cabinets peuvent rejoindre le réseau de partenaires de Provigood.
-- [Blog](https://laetitiaperson.github.io/provigood-prototype/fr/blog.html) : Articles sur le marché alimentaire et FMCG vietnamien.
-- [Contact](https://laetitiaperson.github.io/provigood-prototype/fr/contact.html) : Formulaire de contact pour les projets, demandes de produits et partenariats.
+- [Accueil](https://provigood.com/fr/) : L'approche en quatre étapes pour l'entrée sur le marché vietnamien (comprendre le marché, accélérer la croissance, optimiser les opérations, passer à l'échelle durablement) et les six secteurs desservis.
+- [Services](https://provigood.com/fr/services.html) : Accès au marché, développement commercial, renforcement des équipes et services aux entreprises.
+- [Notre histoire](https://provigood.com/fr/notre-histoire.html) : Historique de l'entreprise depuis 2018 et parcours du fondateur Vincent Treluyer.
+- [FAQ](https://provigood.com/fr/faq.html) : Réponses directes sur l'entrée sur le marché, la distribution, l'importation de produits au Vietnam, les partenariats et la collaboration avec Provigood.
+- [Distribution](https://provigood.com/fr/distribution.html) : L'activité de distribution de Provigood et les marques qu'elle représente.
+- [Olivo - Logistique à froid](https://provigood.com/fr/distribution-olivo.html) : Conteneurs isolés de chaîne frigorifique passive pour les livraisons alimentaires et pharmaceutiques au Vietnam et au Cambodge.
+- [Le Caïffa](https://provigood.com/fr/distribution-cafe.html) : Capsules de café compostables fabriquées au Vietnam.
+- [Devenez partenaire](https://provigood.com/fr/devenir-partenaire.html) : Comment les experts et cabinets peuvent rejoindre le réseau de partenaires de Provigood.
+- [Blog](https://provigood.com/fr/blog.html) : Articles sur le marché alimentaire et FMCG vietnamien.
+- [Contact](https://provigood.com/fr/contact.html) : Formulaire de contact pour les projets, demandes de produits et partenariats.
 
 ## Contact
 
