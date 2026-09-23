@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Pink rounded background -->
+  <rect width="32" height="32" rx="7" fill="#E91E63"/>
+  <!-- White "i" body -->
+  <rect x="14" y="16" width="4" height="11" rx="1.2" fill="#FFFFFF"/>
+  <!-- White dot of the "i" -->
+  <circle cx="16" cy="13" r="2" fill="#FFFFFF"/>
+  <!-- Lime triangle above the dot, tilted ~20° (matches the wordmark accent) -->
+  <polygon points="16,2 20,9 12,9" fill="#C5DA3B" transform="rotate(20 16 5.5)"/>
+</svg>

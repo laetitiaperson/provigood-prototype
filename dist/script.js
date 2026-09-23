@@ -1,0 +1,629 @@
+(function () {
+'use strict';
+const header = document.querySelector('.site-header');
+if (header) {
+const onScroll = () => {
+if (window.scrollY > 8) header.classList.add('is-scrolled');
+else header.classList.remove('is-scrolled');
+};
+onScroll();
+window.addEventListener('scroll', onScroll, { passive: true });
+}
+const drawer = document.querySelector('.mobile-drawer');
+const overlay = document.querySelector('.mobile-drawer-overlay');
+const openBtn = document.querySelector('.menu-toggle');
+const closeBtn = document.querySelector('.drawer-close');
+function openDrawer() {
+if (!drawer || !overlay) return;
+drawer.classList.add('is-open');
+overlay.classList.add('is-open');
+document.body.classList.add('no-scroll');
+drawer.setAttribute('aria-hidden', 'false');
+if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+const firstFocus = drawer.querySelector('a, button');
+if (firstFocus) firstFocus.focus();
+}
+function closeDrawer() {
+if (!drawer || !overlay) return;
+drawer.classList.remove('is-open');
+overlay.classList.remove('is-open');
+document.body.classList.remove('no-scroll');
+drawer.setAttribute('aria-hidden', 'true');
+if (openBtn) {
+openBtn.setAttribute('aria-expanded', 'false');
+openBtn.focus();
+}
+}
+if (openBtn) openBtn.addEventListener('click', openDrawer);
+if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+if (overlay) overlay.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
+closeDrawer();
+}
+});
+if (drawer) {
+drawer.querySelectorAll('a').forEach((link) => {
+link.addEventListener('click', () => {
+setTimeout(closeDrawer, 50);
+});
+});
+}
+document.querySelectorAll('.has-dropdown').forEach((wrap) => {
+const toggle = wrap.querySelector('.dropdown-toggle');
+const menu = wrap.querySelector('.dropdown-menu');
+if (!toggle || !menu) return;
+toggle.setAttribute('aria-haspopup', 'true');
+toggle.setAttribute('aria-expanded', 'false');
+toggle.addEventListener('click', (e) => {
+if (toggle.tagName === 'A') return;
+e.preventDefault();
+const isOpen = menu.classList.contains('is-open');
+document.querySelectorAll('.dropdown-menu.is-open').forEach((m) => m.classList.remove('is-open'));
+document.querySelectorAll('.dropdown-toggle[aria-expanded="true"]').forEach((t) => t.setAttribute('aria-expanded', 'false'));
+if (!isOpen) {
+menu.classList.add('is-open');
+toggle.setAttribute('aria-expanded', 'true');
+}
+});
+document.addEventListener('click', (e) => {
+if (!wrap.contains(e.target)) {
+menu.classList.remove('is-open');
+toggle.setAttribute('aria-expanded', 'false');
+}
+});
+});
+document.querySelectorAll('.faq-list').forEach((list) => {
+const items = list.querySelectorAll('.faq-item');
+items.forEach((item) => {
+item.addEventListener('toggle', () => {
+if (item.open) {
+items.forEach((other) => {
+if (other !== item) other.open = false;
+});
+}
+});
+});
+});
+const FORM_ENDPOINT = '../send-form.php';
+const NO_FORM_SCRIPT = [404, 405, 501];
+function showFormSuccess(form, mode) {
+form.querySelectorAll(':scope > *:not(.form-success)').forEach((el) => {
+el.hidden = true;
+});
+if (form.id === 'contact-form') {
+const selector = document.querySelector('.type-selector');
+if (selector) selector.hidden = true;
+}
+const success = form.querySelector('.form-success[data-mode="' + mode + '"]');
+if (success) {
+success.hidden = false;
+success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+}
+async function deliverForm(form, payload, mailtoHref) {
+const button = form.querySelector('button[type="submit"]');
+const error = form.querySelector('.form-error');
+const idleLabel = button ? button.textContent : '';
+if (error) error.hidden = true;
+if (button) {
+button.disabled = true;
+button.setAttribute('aria-busy', 'true');
+button.textContent = 'Sending…';
+}
+try {
+const response = await fetch(FORM_ENDPOINT, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+body: JSON.stringify(payload),
+});
+if (NO_FORM_SCRIPT.includes(response.status)) {
+window.location.href = mailtoHref;
+showFormSuccess(form, 'mailto');
+return;
+}
+const result = await response.json().catch(() => ({}));
+if (!response.ok || !result.success) throw new Error('Delivery failed');
+showFormSuccess(form, 'sent');
+} catch (err) {
+if (button) {
+button.disabled = false;
+button.removeAttribute('aria-busy');
+button.textContent = idleLabel;
+}
+if (error) {
+error.hidden = false;
+error.focus();
+}
+}
+}
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+const variants = document.querySelectorAll('.form-variant');
+const radios = document.querySelectorAll('input[name="contact-type"]');
+function showVariant(type) {
+variants.forEach((v) => {
+const match = v.dataset.variant === type;
+v.hidden = !match;
+v.querySelectorAll('input, select, textarea').forEach((el) => {
+el.disabled = !match;
+});
+});
+}
+const params = new URLSearchParams(window.location.search);
+const rawType = params.get('type');
+const TYPE_ALIASES = {
+consulting: 'services',
+recruitment: 'services',
+training: 'services',
+'corporate-services': 'services',
+};
+const initialType = TYPE_ALIASES[rawType] || rawType;
+const validTypes = ['services', 'olivo', 'coffee', 'partnership'];
+if (initialType && validTypes.includes(initialType)) {
+const matchedRadio = document.querySelector(`input[name="contact-type"][value="${initialType}"]`);
+if (matchedRadio) matchedRadio.checked = true;
+showVariant(initialType);
+} else {
+showVariant('services');
+}
+radios.forEach((r) => {
+r.addEventListener('change', (e) => {
+if (e.target.checked) showVariant(e.target.value);
+});
+});
+const FIELD_LABELS = {
+name: 'Full name',
+email: 'Work email',
+company: 'Company',
+role: 'Your role',
+country: 'Country / region',
+phone: 'Phone',
+services_type: 'Provigood service',
+services_timeline: 'Timeline',
+services_budget: 'Indicative budget',
+olivo_need: 'Type of need',
+olivo_volume: 'Estimated volume',
+olivo_usecase: 'Use case',
+olivo_region: 'Region of operation',
+coffee_line: 'Line of interest',
+coffee_usecase: 'Use case',
+coffee_volume: 'Monthly volume',
+coffee_region: 'Country / region',
+partnership_type: 'Type of partner',
+partnership_expertise: 'Areas of expertise',
+partnership_geo: 'Geographic coverage',
+partnership_linkedin: 'LinkedIn URL',
+message: 'Message',
+};
+const TYPE_SUBJECT = {
+services: 'Services',
+olivo: 'Olivo Cold Logistics',
+coffee: 'Le Caiffa coffee capsules',
+partnership: 'Partnership',
+};
+function buildMailto() {
+const fd = new FormData(contactForm);
+const checkedRadio = document.querySelector('input[name="contact-type"]:checked');
+const type = (checkedRadio && checkedRadio.value) || 'services';
+const subject = 'Provigood inquiry: ' + (TYPE_SUBJECT[type] || 'General');
+const lines = [];
+for (const [key, label] of Object.entries(FIELD_LABELS)) {
+const val = fd.get(key);
+if (val && String(val).trim()) {
+lines.push(label + ': ' + val);
+}
+}
+const body = lines.join('\n') +
+'\n\n— Sent from the Provigood website contact form.';
+return 'mailto:sales@provigood.com?subject=' +
+encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+contactForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+if (!contactForm.checkValidity()) {
+contactForm.reportValidity();
+return;
+}
+const fd = new FormData(contactForm);
+const checkedRadio = document.querySelector('input[name="contact-type"]:checked');
+const type = (checkedRadio && checkedRadio.value) || 'services';
+const topic = TYPE_SUBJECT[type] || 'General';
+const payload = {
+form: 'contact',
+subject: 'Provigood inquiry: ' + topic,
+email: String(fd.get('email') || '').trim(),
+fields: { 'Inquiry type': topic },
+};
+for (const [key, label] of Object.entries(FIELD_LABELS)) {
+const val = fd.get(key);
+if (val && String(val).trim()) payload.fields[label] = String(val).trim();
+}
+if (fd.get('botcheck')) payload.botcheck = true;
+await deliverForm(contactForm, payload, buildMailto());
+});
+}
+document.querySelectorAll('input[type="tel"]').forEach((field) => {
+field.addEventListener('input', () => {
+const cleaned = field.value.replace(/[^\d\s+().-]/g, '');
+if (cleaned !== field.value) {
+const pos = field.selectionStart - (field.value.length - cleaned.length);
+field.value = cleaned;
+try { field.setSelectionRange(pos, pos); } catch (err) { }
+}
+});
+});
+const testimonialForm = document.getElementById('testimonial-form');
+if (testimonialForm) {
+const TESTIMONIAL_LABELS = {
+first_name: 'First name',
+last_name: 'Last name',
+email: 'Email',
+company: 'Company / organization',
+role: 'Role / title',
+country: 'Country',
+testimonial: 'Testimonial',
+};
+function buildTestimonialMailto() {
+const fd = new FormData(testimonialForm);
+const lines = [];
+for (const [key, label] of Object.entries(TESTIMONIAL_LABELS)) {
+const val = fd.get(key);
+if (val && String(val).trim()) {
+lines.push(label + ': ' + String(val).trim());
+}
+}
+lines.push('May we publish it: ' + (fd.get('publish_consent') ? 'yes' : 'no'));
+const name = [fd.get('first_name'), fd.get('last_name')]
+.filter(Boolean).join(' ').trim();
+const subject = 'Provigood testimonial' + (name ? ' from ' + name : '');
+const body = lines.join('\n') +
+'\n\n— Sent from the Provigood website testimonial form.';
+return 'mailto:sales@provigood.com?subject=' +
+encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+testimonialForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+if (!testimonialForm.checkValidity()) {
+testimonialForm.reportValidity();
+return;
+}
+const fd = new FormData(testimonialForm);
+const name = [fd.get('first_name'), fd.get('last_name')]
+.filter(Boolean).join(' ').trim();
+const payload = {
+form: 'testimonial',
+subject: 'Provigood testimonial' + (name ? ' from ' + name : ''),
+email: String(fd.get('email') || '').trim(),
+fields: {},
+};
+for (const [key, label] of Object.entries(TESTIMONIAL_LABELS)) {
+const val = fd.get(key);
+if (val && String(val).trim()) payload.fields[label] = String(val).trim();
+}
+payload.fields['May we publish it'] = fd.get('publish_consent') ? 'yes' : 'no';
+if (fd.get('botcheck')) payload.botcheck = true;
+await deliverForm(testimonialForm, payload, buildTestimonialMailto());
+});
+}
+const YT_HOST = 'https://www.youtube-nocookie.com';
+function loadYouTubeApi(callback) {
+if (window.YT && window.YT.Player) {
+callback();
+return;
+}
+const previous = window.onYouTubeIframeAPIReady;
+window.onYouTubeIframeAPIReady = () => {
+if (typeof previous === 'function') previous();
+callback();
+};
+if (!document.querySelector('script[src*="iframe_api"]')) {
+const tag = document.createElement('script');
+tag.src = 'https://www.youtube.com/iframe_api';
+document.head.appendChild(tag);
+}
+}
+function enforceEndTime(iframe, endTime) {
+loadYouTubeApi(() => {
+let watchInterval = null;
+const stopWatching = () => {
+if (watchInterval) {
+clearInterval(watchInterval);
+watchInterval = null;
+}
+};
+const startWatching = (player) => {
+stopWatching();
+watchInterval = setInterval(() => {
+try {
+if (player.getCurrentTime() >= endTime) {
+player.pauseVideo();
+stopWatching();
+}
+} catch (err) {
+stopWatching();
+}
+}, 200);
+};
+new YT.Player(iframe.id, {
+host: YT_HOST,
+events: {
+onReady: (event) => {
+if (event.target.getPlayerState() === YT.PlayerState.PLAYING) {
+startWatching(event.target);
+}
+},
+onStateChange: (event) => {
+if (event.data === YT.PlayerState.PLAYING) {
+startWatching(event.target);
+} else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+stopWatching();
+}
+},
+},
+});
+});
+}
+document.querySelectorAll('.yt-facade').forEach((button) => {
+button.addEventListener('click', () => {
+const params = new URLSearchParams(button.dataset.ytParams || '');
+params.set('autoplay', '1');
+params.set('playsinline', '1');
+params.set('rel', '0');
+const endTime = parseFloat(button.dataset.endTime);
+const needsApi = Number.isFinite(endTime);
+if (needsApi) {
+params.set('enablejsapi', '1');
+params.set('origin', window.location.origin);
+}
+const iframe = document.createElement('iframe');
+iframe.src = YT_HOST + '/embed/' + encodeURIComponent(button.dataset.ytId) + '?' + params.toString();
+iframe.title = button.dataset.ytTitle || 'YouTube video';
+iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+iframe.allowFullscreen = true;
+iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+if (needsApi) {
+iframe.id = button.dataset.ytFrameId || 'yt-frame-' + button.dataset.ytId;
+}
+button.replaceWith(iframe);
+iframe.focus();
+if (needsApi) enforceEndTime(iframe, endTime);
+});
+});
+const CONSENT_KEY = 'provigood-cookie-consent';
+const COOKIE_I18N = {
+en: {
+bannerTitle: 'We value your privacy',
+bannerDesc: 'We use cookies to make our site work, analyse traffic, and improve your experience. You can accept all, reject non-essential, or customize your choices. See our <a href="cookie-policy.html">Cookie Policy</a>.',
+acceptAll: 'Accept all',
+rejectAll: 'Reject all',
+customize: 'Customize',
+save: 'Save preferences',
+close: 'Close',
+modalTitle: 'Cookie preferences',
+modalDesc: 'Choose which categories of cookies we can use. Strictly necessary cookies are always on because the site cannot work without them. See our <a href="cookie-policy.html">Cookie Policy</a> for full details.',
+catNecessary: 'Strictly necessary',
+catNecessaryDesc: 'Required for core site functionality such as navigation, language preference, and security. Cannot be disabled.',
+catAnalytics: 'Analytics',
+catAnalyticsDesc: 'Help us understand how visitors use the site so we can improve it (Cloudflare Web Analytics, without cookies). Aggregated and anonymised.',
+catMarketing: 'Marketing',
+catMarketingDesc: 'Used to measure the performance of our campaigns and to show you relevant content.',
+catThirdparty: 'Third-party content',
+catThirdpartyDesc: 'Enables embedded content from third parties (e.g. YouTube videos, maps). These providers may set their own cookies.',
+},
+fr: {
+bannerTitle: 'Votre vie privée nous importe',
+bannerDesc: 'Nous utilisons des cookies pour faire fonctionner le site, analyser le trafic et améliorer votre expérience. Vous pouvez tout accepter, refuser le non-essentiel ou personnaliser vos choix. Consultez notre <a href="politique-cookies.html">Politique relative aux cookies</a>.',
+acceptAll: 'Tout accepter',
+rejectAll: 'Tout refuser',
+customize: 'Personnaliser',
+save: 'Enregistrer mes préférences',
+close: 'Fermer',
+modalTitle: 'Préférences de cookies',
+modalDesc: 'Choisissez les catégories de cookies que nous pouvons utiliser. Les cookies strictement nécessaires sont toujours activés car le site ne peut pas fonctionner sans eux. Consultez notre <a href="politique-cookies.html">Politique relative aux cookies</a> pour plus de détails.',
+catNecessary: 'Strictement nécessaires',
+catNecessaryDesc: 'Requis pour le fonctionnement de base du site, comme la navigation, la préférence linguistique et la sécurité. Ne peuvent pas être désactivés.',
+catAnalytics: 'Analytiques',
+catAnalyticsDesc: "Nous aident à comprendre comment les visiteurs utilisent le site afin de l'améliorer (Cloudflare Web Analytics, sans cookie). Données agrégées et anonymisées.",
+catMarketing: 'Marketing',
+catMarketingDesc: 'Servent à mesurer la performance de nos campagnes et à vous proposer du contenu pertinent.',
+catThirdparty: 'Contenu tiers',
+catThirdpartyDesc: "Permettent d'afficher du contenu intégré provenant de tiers (vidéos YouTube, cartes, etc.). Ces fournisseurs peuvent déposer leurs propres cookies.",
+},
+vi: {
+bannerTitle: 'Chúng tôi tôn trọng quyền riêng tư của bạn',
+bannerDesc: 'Chúng tôi sử dụng cookie để vận hành trang web, phân tích lưu lượng và cải thiện trải nghiệm của bạn. Bạn có thể chấp nhận tất cả, từ chối phần không thiết yếu hoặc tùy chỉnh lựa chọn. Xem <a href="cookie-policy.html">Chính sách Cookie</a> của chúng tôi.',
+acceptAll: 'Chấp nhận tất cả',
+rejectAll: 'Từ chối tất cả',
+customize: 'Tùy chỉnh',
+save: 'Lưu tùy chọn',
+close: 'Đóng',
+modalTitle: 'Tùy chọn cookie',
+modalDesc: 'Chọn các loại cookie chúng tôi có thể sử dụng. Cookie thiết yếu luôn được bật vì trang web không thể hoạt động nếu thiếu. Xem <a href="cookie-policy.html">Chính sách Cookie</a> để biết chi tiết.',
+catNecessary: 'Cookie thiết yếu',
+catNecessaryDesc: 'Cần thiết cho hoạt động cốt lõi của trang web như điều hướng, ngôn ngữ ưu tiên và bảo mật. Không thể tắt.',
+catAnalytics: 'Phân tích',
+catAnalyticsDesc: 'Giúp chúng tôi hiểu cách người dùng tương tác với trang web để cải thiện trải nghiệm. Dữ liệu được tổng hợp và ẩn danh.',
+catMarketing: 'Tiếp thị',
+catMarketingDesc: 'Dùng để đo lường hiệu quả chiến dịch và đề xuất nội dung liên quan.',
+catThirdparty: 'Nội dung của bên thứ ba',
+catThirdpartyDesc: 'Cho phép hiển thị nội dung nhúng từ bên thứ ba (video YouTube, bản đồ, v.v.). Các nhà cung cấp này có thể đặt cookie riêng.',
+},
+};
+function cookieLang() {
+const raw = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+return COOKIE_I18N[raw] ? raw : 'en';
+}
+function t(key) {
+return COOKIE_I18N[cookieLang()][key];
+}
+function readConsent() {
+try {
+const raw = localStorage.getItem(CONSENT_KEY);
+return raw ? JSON.parse(raw) : null;
+} catch (err) {
+return null;
+}
+}
+function writeConsent(prefs) {
+const payload = {
+necessary: true,
+analytics: !!prefs.analytics,
+marketing: !!prefs.marketing,
+thirdparty: !!prefs.thirdparty,
+timestamp: new Date().toISOString(),
+};
+try {
+localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+} catch (err) {
+}
+document.dispatchEvent(new CustomEvent('provigood:cookie-consent', { detail: payload }));
+return payload;
+}
+function buildBannerHTML() {
+return (
+'<aside class="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-desc">' +
+'  <h2 id="cookie-banner-title">' + t('bannerTitle') + '</h2>' +
+'  <p id="cookie-banner-desc">' + t('bannerDesc') + '</p>' +
+'  <div class="cookie-banner-actions">' +
+'    <button type="button" class="btn btn--primary btn--small js-cookie-accept">' + t('acceptAll') + '</button>' +
+'    <button type="button" class="btn btn--ghost btn--small js-cookie-reject">' + t('rejectAll') + '</button>' +
+'    <button type="button" class="btn btn--ghost btn--small js-cookie-customize">' + t('customize') + '</button>' +
+'  </div>' +
+'</aside>'
+);
+}
+function buildModalHTML(current) {
+const c = current || { analytics: true, marketing: true, thirdparty: true };
+const chk = (v) => (v ? 'checked' : '');
+return (
+'<div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">' +
+'  <div class="cookie-modal-dialog">' +
+'    <div class="cookie-modal-head">' +
+'      <h2 id="cookie-modal-title">' + t('modalTitle') + '</h2>' +
+'      <button type="button" class="cookie-modal-close js-cookie-modal-close" aria-label="' + t('close') + '">' +
+'        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+'      </button>' +
+'    </div>' +
+'    <p>' + t('modalDesc') + '</p>' +
+'    <div class="cookie-categories">' +
+'      <div class="cookie-category">' +
+'        <div class="cookie-category-head">' +
+'          <h3>' + t('catNecessary') + '</h3>' +
+'          <label class="cookie-toggle"><input type="checkbox" checked disabled data-category="necessary"><span class="cookie-toggle-slider"></span></label>' +
+'        </div>' +
+'        <p>' + t('catNecessaryDesc') + '</p>' +
+'      </div>' +
+'      <div class="cookie-category">' +
+'        <div class="cookie-category-head">' +
+'          <h3>' + t('catAnalytics') + '</h3>' +
+'          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.analytics) + ' data-category="analytics"><span class="cookie-toggle-slider"></span></label>' +
+'        </div>' +
+'        <p>' + t('catAnalyticsDesc') + '</p>' +
+'      </div>' +
+'      <div class="cookie-category">' +
+'        <div class="cookie-category-head">' +
+'          <h3>' + t('catMarketing') + '</h3>' +
+'          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.marketing) + ' data-category="marketing"><span class="cookie-toggle-slider"></span></label>' +
+'        </div>' +
+'        <p>' + t('catMarketingDesc') + '</p>' +
+'      </div>' +
+'      <div class="cookie-category">' +
+'        <div class="cookie-category-head">' +
+'          <h3>' + t('catThirdparty') + '</h3>' +
+'          <label class="cookie-toggle"><input type="checkbox" ' + chk(c.thirdparty) + ' data-category="thirdparty"><span class="cookie-toggle-slider"></span></label>' +
+'        </div>' +
+'        <p>' + t('catThirdpartyDesc') + '</p>' +
+'      </div>' +
+'    </div>' +
+'    <div class="cookie-modal-actions">' +
+'      <button type="button" class="btn btn--ghost btn--small js-cookie-reject">' + t('rejectAll') + '</button>' +
+'      <button type="button" class="btn btn--primary btn--small js-cookie-save">' + t('save') + '</button>' +
+'      <button type="button" class="btn btn--primary btn--small js-cookie-accept">' + t('acceptAll') + '</button>' +
+'    </div>' +
+'  </div>' +
+'</div>'
+);
+}
+function removeBanner() {
+const existing = document.querySelector('.cookie-banner');
+if (existing) existing.remove();
+}
+function removeModal() {
+const existing = document.querySelector('.cookie-modal');
+if (existing) existing.remove();
+document.body.classList.remove('no-scroll');
+}
+function showBanner() {
+if (document.querySelector('.cookie-banner')) return;
+const wrap = document.createElement('div');
+wrap.innerHTML = buildBannerHTML();
+document.body.appendChild(wrap.firstElementChild);
+}
+function showModal(prefill) {
+removeModal();
+const wrap = document.createElement('div');
+wrap.innerHTML = buildModalHTML(prefill);
+const modal = wrap.firstElementChild;
+document.body.appendChild(modal);
+document.body.classList.add('no-scroll');
+modal.addEventListener('click', (e) => {
+if (e.target === modal) removeModal();
+});
+}
+function acceptAll() {
+writeConsent({ analytics: true, marketing: true, thirdparty: true });
+removeBanner();
+removeModal();
+}
+function rejectAll() {
+writeConsent({ analytics: false, marketing: false, thirdparty: false });
+removeBanner();
+removeModal();
+}
+function savePreferences() {
+const modal = document.querySelector('.cookie-modal');
+if (!modal) return;
+const prefs = {
+analytics: !!modal.querySelector('input[data-category="analytics"]')?.checked,
+marketing: !!modal.querySelector('input[data-category="marketing"]')?.checked,
+thirdparty: !!modal.querySelector('input[data-category="thirdparty"]')?.checked,
+};
+writeConsent(prefs);
+removeBanner();
+removeModal();
+}
+document.addEventListener('click', (e) => {
+const target = e.target.closest(
+'.js-cookie-accept, .js-cookie-reject, .js-cookie-customize, .js-cookie-save, .js-cookie-modal-close, .js-cookie-settings'
+);
+if (!target) return;
+if (target.classList.contains('js-cookie-accept')) {
+e.preventDefault();
+acceptAll();
+} else if (target.classList.contains('js-cookie-reject')) {
+e.preventDefault();
+rejectAll();
+} else if (target.classList.contains('js-cookie-customize')) {
+e.preventDefault();
+showModal(readConsent());
+} else if (target.classList.contains('js-cookie-save')) {
+e.preventDefault();
+savePreferences();
+} else if (target.classList.contains('js-cookie-modal-close')) {
+e.preventDefault();
+removeModal();
+} else if (target.classList.contains('js-cookie-settings')) {
+e.preventDefault();
+showModal(readConsent());
+}
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && document.querySelector('.cookie-modal')) {
+removeModal();
+}
+});
+if (!readConsent()) {
+setTimeout(showBanner, 300);
+}
+})();
