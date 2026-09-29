@@ -7,3 +7,6 @@ provigood-audit/
 # Logs / temp
 *.log
 .tmp/
+
+# Claude Code local config (preview server)
+.claude/
