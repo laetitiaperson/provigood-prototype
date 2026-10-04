@@ -627,3 +627,28 @@ if (!readConsent()) {
 setTimeout(showBanner, 300);
 }
 })();
+
+// Blog index: the category chips filter the article cards by their visible
+// category label. Chips without data-filter (none today) are left alone.
+(function () {
+  'use strict';
+  const chips = document.querySelectorAll('.category-chip[data-filter]');
+  if (!chips.length) return;
+  const cards = document.querySelectorAll('main .blog-card');
+  chips.forEach((chip) => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      const wanted = chip.getAttribute('data-filter');
+      chips.forEach((c) => {
+        const on = c === chip;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      cards.forEach((card) => {
+        const label = card.querySelector('.blog-card-category');
+        const cat = label ? label.textContent.trim() : '';
+        card.style.display = (wanted === 'all' || cat === wanted) ? '' : 'none';
+      });
+    });
+  });
+})();
