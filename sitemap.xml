@@ -321,4 +321,22 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://provigood.com/fr/blog-avenir-emploi-salarie.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://provigood.com/en/blog-salaried-employment-future.html" />
   </url>
+  <url>
+    <loc>https://provigood.com/en/blog-cold-chain-green-circular-project-vietnam.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://provigood.com/en/blog-cold-chain-green-circular-project-vietnam.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://provigood.com/fr/blog-chaine-du-froid-projet-vert-circulaire-vietnam.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://provigood.com/en/blog-cold-chain-green-circular-project-vietnam.html" />
+  </url>
+  <url>
+    <loc>https://provigood.com/fr/blog-chaine-du-froid-projet-vert-circulaire-vietnam.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://provigood.com/en/blog-cold-chain-green-circular-project-vietnam.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://provigood.com/fr/blog-chaine-du-froid-projet-vert-circulaire-vietnam.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://provigood.com/en/blog-cold-chain-green-circular-project-vietnam.html" />
+  </url>
 </urlset>
